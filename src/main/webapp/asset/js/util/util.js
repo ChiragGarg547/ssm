@@ -18,13 +18,13 @@ function getSourceFromWeb(aUrl,method,aData,aCallback){
 }
 
 //获取本地资源
-function getLocalResource(path,res) {
+function getLocalResource(path,aCallback) {
     $.ajax({
         type: "GET",
         url: path,
         dataType: "text",
-        success: function(rs) {
-            res(rs);
+        success: function(res) {
+            aCallback(res);
         },
         error: function(err) {
             alert(err);
@@ -32,6 +32,14 @@ function getLocalResource(path,res) {
     });
 }
 
+//模板合成
+function mixDataAndTemplate(source,data,aCallback) {
+    var bt = baidu.template;
+    var backStr = bt(source,data);
+    aCallback(backStr);
+}
+
+//sublime激活码
 /*
 TwitterInc
 200 User License

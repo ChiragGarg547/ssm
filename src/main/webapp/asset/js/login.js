@@ -7,10 +7,16 @@ var login={
             password:l_password
         }
         getSourceFromWeb( '/user/checkLogin', 'get', aData, function(res){
-            if(res){
-                alert("登陆成功！")
+            if(res.success){
+                alert("登陆成功！");
+                getLocalResource('html/mainpage.html',function (source) {
+                    var data={};
+                    mixDataAndTemplate(source,data,function (html) {
+                        $("#mainContainer").html(html);
+                    });
+                });
             }else{
-                alert("密码错误！")
+                alert("密码错误！");
             }
         })
     }
@@ -23,9 +29,9 @@ var login={
         }
         getSourceFromWeb( '/user/register', 'get', aData, function(res){
             if(res){
-                alert("登陆成功！")
+                alert("注册成功！");
             }else{
-                alert("密码错误！")
+                alert("注册失败！");
             }
         })
     }

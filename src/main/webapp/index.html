@@ -18,28 +18,26 @@
         <![endif]-->
     </head>
     <body style="padding-top: 100px">
-        <div class="row">
-            <div class="col-md-2 col-md-offset-5">
-                <form>
-                    <div class="form-group">
-                        <label for="username">账号</label>
-                        <input type="text" class="form-control" id="username" placeholder="用户名">
-                    </div>
-                    <div class="form-group">
-                        <label for="password">密码</label>
-                        <input type="password" class="form-control" id="password" placeholder="密码">
-                    </div>
-                    <button class="btn btn-primary" onclick="login.loginCheck()">登录</button>
-                    <button class="btn btn-success" onclick="login.register()">注册</button>
-                </form>
-            </div>
+        <div id="mainContainer">
+
         </div>
-        <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-        <script src="asset/js/jquery-3.3.1.min.js"></script>
-        <!-- Include all compiled plugins (below), or include individual files as needed -->
-        <script src="asset/js/bootstrap.js"></script>
-        <script src="asset/js/localResource.js"></script>
-        <script src="asset/js/util/util.js"></script>
-        <script src="asset/js/login.js"></script>
     </body>
+
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="asset/js/jquery-3.3.1.min.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="asset/js/bootstrap.js"></script>
+    <script src="asset/js/baiduTemplate.js"></script>
+    <script src="asset/js/localResource.js"></script>
+    <script src="asset/js/util/util.js"></script>
+    <script src="asset/js/login.js"></script>
+    <script>
+        $(function () {
+            getLocalResource("html/welcome.html",function (source) {
+                mixDataAndTemplate(source,'',function(res){
+                    $("#mainContainer").html(res);
+                });
+            });
+        });
+    </script>
 </html>

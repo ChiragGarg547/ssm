@@ -1,3 +1,4 @@
 var GParam = {
-	url:"http://127.0.0.1:8080/"
+	url:"http://127.0.0.1:8080/",
+	username:''
 }

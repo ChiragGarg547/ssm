@@ -33,32 +33,31 @@ public class UserController {
 
     @GetMapping(value = "/checkLogin")
     @ResponseBody
-    public Boolean checkLogin(@RequestParam(value = "username") String username, @RequestParam(value = "password") String password){
+    public UserInfo checkLogin(@RequestParam(value = "username") String username, @RequestParam(value = "password") String password){
+        UserInfo back = new UserInfo();
         if(username!=null&&password!=null){
+            back.setSuccess(false);
             String realPass = userService.selectPasswordByUsername(username);
-
-            if (realPass == password){
-                return true;
+            if (password.equals(realPass)){
+                String pk = paramService.getPrivateKey(username);
+                back.setPrivateKey(pk);
+                back.setUserName(username);
+                back.setSuccess(true);
             }
         }
-        return false;
+        return back;
     }
 
     @GetMapping(value = "/register")
     @ResponseBody
-    public UserInfo register(@RequestParam(value = "username") String username, @RequestParam(value = "password") String password){
-        UserInfo back = new UserInfo();
-        back.setSuccess(false);
+    public boolean register(@RequestParam(value = "username") String username, @RequestParam(value = "password") String password){
         if(username!=null&& password!=null){
             if(userService.queryUsernameExist(username)){
                 if (userService.insertNewUser(username,password) > 0){
-                    String pk = paramService.getPrivateKey(username);
-                    back.setPrivateKey(pk);
-                    back.setSuccess(true);
-                    return back;
+                    return true;
                 }
             }
         }
-        return back;
+        return false;
     }
 }

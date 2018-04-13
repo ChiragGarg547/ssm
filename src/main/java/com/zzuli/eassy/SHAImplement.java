@@ -79,54 +79,54 @@ public class SHAImplement {
         int var1 = this.H0, var2=this.H1, var3=this.H2, var4 = this.H3, var5 = this.H4, var6 = 0, var7;
 
         for(var7 = 0; var7 < 4; ++var7) {
-            var5 += (var1 << 5 | var1 >>> 27) + this.f(var2, var3, var4) + this.W[var6++] + 1518500249;
+            var5 += (var1 << 5 | var1 >>> 27) + this.f(var2, var3, var4) + this.W[var6++] + K1;
             var2 = var2 << 30 | var2 >>> 2;
-            var4 += (var5 << 5 | var5 >>> 27) + this.f(var1, var2, var3) + this.W[var6++] + 1518500249;
+            var4 += (var5 << 5 | var5 >>> 27) + this.f(var1, var2, var3) + this.W[var6++] + K1;
             var1 = var1 << 30 | var1 >>> 2;
-            var3 += (var4 << 5 | var4 >>> 27) + this.f(var5, var1, var2) + this.W[var6++] + 1518500249;
+            var3 += (var4 << 5 | var4 >>> 27) + this.f(var5, var1, var2) + this.W[var6++] + K1;
             var5 = var5 << 30 | var5 >>> 2;
-            var2 += (var3 << 5 | var3 >>> 27) + this.f(var4, var5, var1) + this.W[var6++] + 1518500249;
+            var2 += (var3 << 5 | var3 >>> 27) + this.f(var4, var5, var1) + this.W[var6++] + K1;
             var4 = var4 << 30 | var4 >>> 2;
-            var1 += (var2 << 5 | var2 >>> 27) + this.f(var3, var4, var5) + this.W[var6++] + 1518500249;
+            var1 += (var2 << 5 | var2 >>> 27) + this.f(var3, var4, var5) + this.W[var6++] + K1;
             var3 = var3 << 30 | var3 >>> 2;
         }
 
         for(var7 = 0; var7 < 4; ++var7) {
-            var5 += (var1 << 5 | var1 >>> 27) + this.h(var2, var3, var4) + this.W[var6++] + 1859775393;
+            var5 += (var1 << 5 | var1 >>> 27) + this.h(var2, var3, var4) + this.W[var6++] + K2;
             var2 = var2 << 30 | var2 >>> 2;
-            var4 += (var5 << 5 | var5 >>> 27) + this.h(var1, var2, var3) + this.W[var6++] + 1859775393;
+            var4 += (var5 << 5 | var5 >>> 27) + this.h(var1, var2, var3) + this.W[var6++] + K2;
             var1 = var1 << 30 | var1 >>> 2;
-            var3 += (var4 << 5 | var4 >>> 27) + this.h(var5, var1, var2) + this.W[var6++] + 1859775393;
+            var3 += (var4 << 5 | var4 >>> 27) + this.h(var5, var1, var2) + this.W[var6++] + K2;
             var5 = var5 << 30 | var5 >>> 2;
-            var2 += (var3 << 5 | var3 >>> 27) + this.h(var4, var5, var1) + this.W[var6++] + 1859775393;
+            var2 += (var3 << 5 | var3 >>> 27) + this.h(var4, var5, var1) + this.W[var6++] + K2;
             var4 = var4 << 30 | var4 >>> 2;
-            var1 += (var2 << 5 | var2 >>> 27) + this.h(var3, var4, var5) + this.W[var6++] + 1859775393;
+            var1 += (var2 << 5 | var2 >>> 27) + this.h(var3, var4, var5) + this.W[var6++] + K2;
             var3 = var3 << 30 | var3 >>> 2;
         }
 
         for(var7 = 0; var7 < 4; ++var7) {
-            var5 += (var1 << 5 | var1 >>> 27) + this.g(var2, var3, var4) + this.W[var6++] + -1894007588;
+            var5 += (var1 << 5 | var1 >>> 27) + this.g(var2, var3, var4) + this.W[var6++] + K3;
             var2 = var2 << 30 | var2 >>> 2;
-            var4 += (var5 << 5 | var5 >>> 27) + this.g(var1, var2, var3) + this.W[var6++] + -1894007588;
+            var4 += (var5 << 5 | var5 >>> 27) + this.g(var1, var2, var3) + this.W[var6++] + K3;
             var1 = var1 << 30 | var1 >>> 2;
-            var3 += (var4 << 5 | var4 >>> 27) + this.g(var5, var1, var2) + this.W[var6++] + -1894007588;
+            var3 += (var4 << 5 | var4 >>> 27) + this.g(var5, var1, var2) + this.W[var6++] + K3;
             var5 = var5 << 30 | var5 >>> 2;
-            var2 += (var3 << 5 | var3 >>> 27) + this.g(var4, var5, var1) + this.W[var6++] + -1894007588;
+            var2 += (var3 << 5 | var3 >>> 27) + this.g(var4, var5, var1) + this.W[var6++] + K3;
             var4 = var4 << 30 | var4 >>> 2;
-            var1 += (var2 << 5 | var2 >>> 27) + this.g(var3, var4, var5) + this.W[var6++] + -1894007588;
+            var1 += (var2 << 5 | var2 >>> 27) + this.g(var3, var4, var5) + this.W[var6++] + K3;
             var3 = var3 << 30 | var3 >>> 2;
         }
 
         for(var7 = 0; var7 <= 3; ++var7) {
-            var5 += (var1 << 5 | var1 >>> 27) + this.h(var2, var3, var4) + this.W[var6++] + -899497514;
+            var5 += (var1 << 5 | var1 >>> 27) + this.h(var2, var3, var4) + this.W[var6++] + K4;
             var2 = var2 << 30 | var2 >>> 2;
-            var4 += (var5 << 5 | var5 >>> 27) + this.h(var1, var2, var3) + this.W[var6++] + -899497514;
+            var4 += (var5 << 5 | var5 >>> 27) + this.h(var1, var2, var3) + this.W[var6++] + K4;
             var1 = var1 << 30 | var1 >>> 2;
-            var3 += (var4 << 5 | var4 >>> 27) + this.h(var5, var1, var2) + this.W[var6++] + -899497514;
+            var3 += (var4 << 5 | var4 >>> 27) + this.h(var5, var1, var2) + this.W[var6++] + K4;
             var5 = var5 << 30 | var5 >>> 2;
-            var2 += (var3 << 5 | var3 >>> 27) + this.h(var4, var5, var1) + this.W[var6++] + -899497514;
+            var2 += (var3 << 5 | var3 >>> 27) + this.h(var4, var5, var1) + this.W[var6++] + K4;
             var4 = var4 << 30 | var4 >>> 2;
-            var1 += (var2 << 5 | var2 >>> 27) + this.h(var3, var4, var5) + this.W[var6++] + -899497514;
+            var1 += (var2 << 5 | var2 >>> 27) + this.h(var3, var4, var5) + this.W[var6++] + K4;
             var3 = var3 << 30 | var3 >>> 2;
         }
 
