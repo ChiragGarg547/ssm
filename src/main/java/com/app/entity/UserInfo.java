@@ -10,7 +10,7 @@ public class UserInfo {
 
     private Boolean isSuccess;
 
-    private String privateKey;
+    private String publicKey;
 
     private String userName;
 
@@ -30,11 +30,11 @@ public class UserInfo {
         isSuccess = success;
     }
 
-    public String getPrivateKey() {
-        return privateKey;
+    public String getPublicKey() {
+        return publicKey;
     }
 
-    public void setPrivateKey(String privateKey) {
-        this.privateKey = privateKey;
+    public void setPublicKey(String publicKey) {
+        this.publicKey = publicKey;
     }
 }

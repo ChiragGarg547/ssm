@@ -21,6 +21,6 @@ public interface ITParamDao {
     @Insert("insert into T_PARAM (user_id,pub_key,pri_key) values(select user_id from T_USER where user_name = #{username},#{pub},#{pri})")
     int insertUserParam(String username, String pub, String pri);
 
-    @Select("select pri_key from T_PARAM where user_id = (select user_id from T_USER where user_name = #{username})")
-    String getPrivateKey(String username);
+    @Select("select pub_key from T_PARAM where user_id = (select user_id from T_USER where user_name = #{username})")
+    String getPublicKey(String username);
 }

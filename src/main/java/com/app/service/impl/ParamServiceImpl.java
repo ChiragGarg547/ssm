@@ -17,7 +17,7 @@ public class ParamServiceImpl implements IParamService {
     @Autowired
     private ITParamDao paramDao;
     @Override
-    public String getPrivateKey(String username) {
-        return paramDao.getPrivateKey(username);
+    public String getPublicKey(String username) {
+        return paramDao.getPublicKey(username);
     }
 }

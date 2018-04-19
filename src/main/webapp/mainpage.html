@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
+        <title>主页</title>
+
+        <!-- Bootstrap -->
+        <link href="third/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+        <!-- MetisMenu CSS -->
+        <link href="third/vendor/metisMenu/metisMenu.min.css" rel="stylesheet">
+
+        <!-- Custom CSS -->
+        <link href="third/dist/css/sb-admin-2.css" rel="stylesheet">
+
+        <!-- Custom Fonts -->
+        <link href="third/vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+        <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+        <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+        <!--[if lt IE 9]>
+        <script src="https://cdn.bootcss.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+        <script src="https://cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
+        <![endif]-->
+    </head>
+    <body>
+
+        <div id="wrapper">
+
+            <!-- Navigation -->
+            <nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="index.html">图片水印管理</a>
+                </div>
+                <!-- /.navbar-header -->
+
+                <ul class="nav navbar-top-links navbar-right">
+                    <li class="dropdown">
+                        <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                            <i class="fa fa-user fa-fw"></i> <i class="fa fa-caret-down"></i>
+                        </a>
+                        <ul class="dropdown-menu dropdown-user">
+                            <li><a id="userName"></a>
+                            </li>
+                            <li><a><i class="fa fa-gear fa-fw"></i> Settings</a>
+                            </li>
+                            <li class="divider"></li>
+                            <li><a href="index.html"><i class="fa fa-sign-out fa-fw"></i> 注销</a>
+                            </li>
+                        </ul>
+                        <!-- /.dropdown-user -->
+                    </li>
+                    <!-- /.dropdown -->
+                </ul>
+                <!-- /.navbar-top-links -->
+
+                <div class="navbar-default sidebar" role="navigation">
+                    <div class="sidebar-nav navbar-collapse">
+                        <ul class="nav" id="side-menu">
+                            <li class="sidebar-search">
+                                <div class="input-group custom-search-form">
+                                    <input type="text" class="form-control" placeholder="...">
+                                    <span class="input-group-btn">
+                                    <button class="btn btn-default" type="button">
+                                        <i class="fa fa-search"></i>
+                                    </button>
+                                </span>
+                                </div>
+                                <!-- /input-group -->
+                            </li>
+                            <li>
+                                <a><i class="fa fa-photo fa-fw"></i> 图片管理</a>
+                            </li>
+                            <li>
+                                <a><i class="fa fa-male fa-fw"></i> 个人管理</a>
+                            </li>
+                        </ul>
+                    </div>
+                    <!-- /.sidebar-collapse -->
+                </div>
+                <!-- /.navbar-static-side -->
+            </nav>
+
+            <!-- Page Content -->
+            <div id="page-wrapper">
+                <input type="file">
+            </div>
+            <!-- /#page-wrapper -->
+
+        </div>
+        <!-- /#wrapper -->
+    </body>
+
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="third/vendor/jquery/jquery.min.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="third/vendor/bootstrap/js/bootstrap.min.js"></script>
+    <script src="third/vendor/metisMenu/metisMenu.min.js"></script>
+    <script src="third/dist/js/sb-admin-2.min.js"></script>
+    <script src="asset/js/baiduTemplate.js"></script>
+    <script src="asset/js/localResource.js"></script>
+    <script src="asset/js/util/util.js"></script>
+    <script>
+        $(document).ready(function () {
+            GParam.username = window.localStorage.getItem('username');
+            window.localStorage.removeItem('username');
+            GParam.publicKey = window.localStorage.getItem('publicKey');
+            window.localStorage.removeItem('publicKey');
+            $("#userName").html('<i class=\"fa fa-user fa-fw\"><\/i> ' + GParam.username)
+        });
+    </script>
+</html>

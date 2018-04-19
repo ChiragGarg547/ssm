@@ -8,13 +8,9 @@ var login={
         }
         getSourceFromWeb( '/user/checkLogin', 'get', aData, function(res){
             if(res.success){
-                alert("登陆成功！");
-                getLocalResource('html/mainpage.html',function (source) {
-                    var data={};
-                    mixDataAndTemplate(source,data,function (html) {
-                        $("#mainContainer").html(html);
-                    });
-                });
+                window.localStorage.setItem('username',res.userName)
+                window.localStorage.setItem('pubKey',res.publicKey)
+                window.location.href='mainpage.html';
             }else{
                 alert("密码错误！");
             }

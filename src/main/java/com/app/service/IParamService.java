@@ -8,5 +8,5 @@ package com.app.service;
  */
 public interface IParamService {
 
-    String getPrivateKey(String username);
+    String getPublicKey(String username);
 }
