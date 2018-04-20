@@ -1,6 +1,7 @@
 package com.app.service.impl;
 
 import com.app.service.IImageService;
+import org.springframework.stereotype.Service;
 
 /**
  * <p>
@@ -8,5 +9,6 @@ import com.app.service.IImageService;
  * Date: 2018-2-1 14:58
  * Created with IDEA
  */
+@Service
 public class ImageServiceImpl implements IImageService {
 }

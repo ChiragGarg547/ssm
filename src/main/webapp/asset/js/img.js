@@ -2,7 +2,7 @@ var img = {
     uploadImg : function () {
         var formData = new FormData();
         var uploadFile = $("#img_up").get(0).files[0];
-        var username = 'zcy';
+        var username = GParam.username;
         formData.append('uploadFile',uploadFile);
         formData.append('username',username);
         $.ajax({

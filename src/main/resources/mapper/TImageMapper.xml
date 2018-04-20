@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.app.dao.ITImageDao" >
+  <resultMap id="BaseResultMap" type="com.app.entity.TImage" >
+    <id column="IMG_ID" property="imgId" jdbcType="INTEGER" />
+    <result column="IMG_NAME" property="imgName" jdbcType="VARCHAR" />
+    <result column="USER_ID" property="userId" jdbcType="INTEGER" />
+    <result column="URL" property="url" jdbcType="VARCHAR" />
+    <result column="IMG_TYPE" property="imgType" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    IMG_ID, IMG_NAME, USER_ID, URL, IMG_TYPE
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from T_IMAGE
+    where IMG_ID = #{imgId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from T_IMAGE
+    where IMG_ID = #{imgId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.app.entity.TImage" >
+    insert into T_IMAGE (IMG_ID, IMG_NAME, USER_ID, 
+      URL, IMG_TYPE)
+    values (#{imgId,jdbcType=INTEGER}, #{imgName,jdbcType=VARCHAR}, #{userId,jdbcType=INTEGER}, 
+      #{url,jdbcType=VARCHAR}, #{imgType,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.app.entity.TImage" >
+    insert into T_IMAGE
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="imgId != null" >
+        IMG_ID,
+      </if>
+      <if test="imgName != null" >
+        IMG_NAME,
+      </if>
+      <if test="userId != null" >
+        USER_ID,
+      </if>
+      <if test="url != null" >
+        URL,
+      </if>
+      <if test="imgType != null" >
+        IMG_TYPE,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="imgId != null" >
+        #{imgId,jdbcType=INTEGER},
+      </if>
+      <if test="imgName != null" >
+        #{imgName,jdbcType=VARCHAR},
+      </if>
+      <if test="userId != null" >
+        #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="url != null" >
+        #{url,jdbcType=VARCHAR},
+      </if>
+      <if test="imgType != null" >
+        #{imgType,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.app.entity.TImage" >
+    update T_IMAGE
+    <set >
+      <if test="imgName != null" >
+        IMG_NAME = #{imgName,jdbcType=VARCHAR},
+      </if>
+      <if test="userId != null" >
+        USER_ID = #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="url != null" >
+        URL = #{url,jdbcType=VARCHAR},
+      </if>
+      <if test="imgType != null" >
+        IMG_TYPE = #{imgType,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where IMG_ID = #{imgId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.app.entity.TImage" >
+    update T_IMAGE
+    set IMG_NAME = #{imgName,jdbcType=VARCHAR},
+      USER_ID = #{userId,jdbcType=INTEGER},
+      URL = #{url,jdbcType=VARCHAR},
+      IMG_TYPE = #{imgType,jdbcType=VARCHAR}
+    where IMG_ID = #{imgId,jdbcType=INTEGER}
+  </update>
+</mapper>
