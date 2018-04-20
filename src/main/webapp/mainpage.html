@@ -91,7 +91,8 @@
 
             <!-- Page Content -->
             <div id="page-wrapper">
-                <input type="file">
+                <input type="file" id="img_up">
+                <button onclick="img.uploadImg()"></button>
             </div>
             <!-- /#page-wrapper -->
 
@@ -108,6 +109,7 @@
     <script src="asset/js/baiduTemplate.js"></script>
     <script src="asset/js/localResource.js"></script>
     <script src="asset/js/util/util.js"></script>
+    <script src="asset/js/img.js"></script>
     <script>
         $(document).ready(function () {
             GParam.username = window.localStorage.getItem('username');

@@ -41,18 +41,22 @@ public class FileController {
             fileUpload.setHeaderEncoding("utf-8");
             List<FileItem> lists = fileUpload.parseRequest(request);
             Iterator itr = lists.iterator();
+            String username, fileName, savePath;
             while (itr.hasNext()){
                 FileItem item = (FileItem) itr.next();
                 if(item.isFormField()){
-                    System.out.println(item.getFieldName() + item.getString("UTF-8"));
+                    if(item.getFieldName() == "username"){
+                        username = item.getString("UTF-8");
+                    }
                 }else{
                     if(item.getName() != null && !item.getName().equals("")){
                         System.out.println("上传文件的大小:" + item.getSize());
                         System.out.println("上传文件的类型:" + item.getContentType());
                         System.out.println("上传文件的名称:" + item.getName());
-                        String realPath = request.getSession().getServletContext().getRealPath("/");
-                        System.out.println(realPath);
-                        FileUtils.copyInputStreamToFile(item.getInputStream(), new File(realPath,item.getName()));
+                        //获取到当前目录
+                        savePath = request.getSession().getServletContext().getRealPath("/");
+                        savePath += "/img";
+                        FileUtils.copyInputStreamToFile(item.getInputStream(), new File(savePath,item.getName()));
                     }
                 }
             }
