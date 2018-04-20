@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dataSource name="encryption@140.143.129.232">
+  <database-model serializer="dbm" rdbms="MYSQL" format-version="4.4">
+    <root id="1"/>
+    <schema id="2" parent="1" name="encryption">
+      <Current>1</Current>
+      <Visible>1</Visible>
+    </schema>
+    <schema id="3" parent="1" name="information_schema"/>
+    <schema id="4" parent="1" name="mysql"/>
+    <schema id="5" parent="1" name="performance_schema"/>
+    <schema id="6" parent="1" name="test"/>
+    <table id="7" parent="2" name="T_IMAGE"/>
+    <table id="8" parent="2" name="T_PARAM"/>
+    <table id="9" parent="2" name="T_USER"/>
+    <column id="10" parent="7" name="IMG_ID">
+      <Position>1</Position>
+      <DataType>int(11)|0</DataType>
+      <NotNull>1</NotNull>
+      <SequenceIdentity>1</SequenceIdentity>
+    </column>
+    <column id="11" parent="7" name="IMG_NAME">
+      <Position>2</Position>
+      <DataType>varchar(300)|0</DataType>
+    </column>
+    <column id="12" parent="7" name="USER_ID">
+      <Position>3</Position>
+      <DataType>int(11)|0</DataType>
+    </column>
+    <column id="13" parent="7" name="URL">
+      <Position>4</Position>
+      <DataType>varchar(300)|0</DataType>
+    </column>
+    <column id="14" parent="7" name="IMG_TYPE">
+      <Position>5</Position>
+      <Comment>ORI原图，DEAL加密后</Comment>
+      <DataType>varchar(10)|0</DataType>
+    </column>
+    <key id="15" parent="7" name="PRIMARY">
+      <NameSurrogate>1</NameSurrogate>
+      <ColNames>IMG_ID</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <column id="16" parent="8" name="PARAM_ID">
+      <Position>1</Position>
+      <DataType>int(11)|0</DataType>
+      <NotNull>1</NotNull>
+      <SequenceIdentity>1</SequenceIdentity>
+    </column>
+    <column id="17" parent="8" name="USER_ID">
+      <Position>2</Position>
+      <DataType>int(11)|0</DataType>
+    </column>
+    <column id="18" parent="8" name="PUB_KEY">
+      <Position>3</Position>
+      <DataType>varchar(4000)|0</DataType>
+    </column>
+    <column id="19" parent="8" name="PRI_KEY">
+      <Position>4</Position>
+      <DataType>varchar(4000)|0</DataType>
+    </column>
+    <key id="20" parent="8" name="PRIMARY">
+      <NameSurrogate>1</NameSurrogate>
+      <ColNames>PARAM_ID</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <column id="21" parent="9" name="INT_ID">
+      <Position>1</Position>
+      <DataType>int(11)|0</DataType>
+      <NotNull>1</NotNull>
+      <SequenceIdentity>1</SequenceIdentity>
+    </column>
+    <column id="22" parent="9" name="USER_NAME">
+      <Position>2</Position>
+      <DataType>varchar(50)|0</DataType>
+    </column>
+    <column id="23" parent="9" name="PASSWORD">
+      <Position>3</Position>
+      <DataType>varchar(100)|0</DataType>
+    </column>
+    <key id="24" parent="9" name="PRIMARY">
+      <NameSurrogate>1</NameSurrogate>
+      <ColNames>INT_ID</ColNames>
+      <Primary>1</Primary>
+    </key>
+  </database-model>
+</dataSource>

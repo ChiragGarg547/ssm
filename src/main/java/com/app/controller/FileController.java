@@ -50,6 +50,7 @@ public class FileController {
                     }
                 }else{
                     if(item.getName() != null && !item.getName().equals("")){
+                        fileName = item.getName();
                         System.out.println("上传文件的大小:" + item.getSize());
                         System.out.println("上传文件的类型:" + item.getContentType());
                         System.out.println("上传文件的名称:" + item.getName());
@@ -60,6 +61,10 @@ public class FileController {
                     }
                 }
             }
+            //图片加密另存一份
+
+            //记录图片信息
+
         }catch (Exception e ){
             e.printStackTrace();
         }
