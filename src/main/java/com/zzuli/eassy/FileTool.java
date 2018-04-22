@@ -23,13 +23,15 @@ public class FileTool {
 
     private static UserDefinedFileAttributeView userDefinedFileAttributeView;
 
-    private static final String key = "verify";
+    private static final String key = "code";
     public static byte[] readImg(String fileName){
         try{
+            //获取后缀
+            String fileType = fileName.substring(fileName.lastIndexOf('.') + 1);
             File file = new File(fileName);
             ByteArrayOutputStream baos = new ByteArrayOutputStream();
             BufferedImage img = ImageIO.read(file);
-            ImageIO.write(img,"png",baos);
+            ImageIO.write(img,fileType,baos);
             return baos.toByteArray();
         }catch (Exception e){
             e.printStackTrace();
@@ -37,16 +39,19 @@ public class FileTool {
         }
     }
 
-    public static void generateImg(byte[] bytes){
+    public static boolean generateImg(byte[] bytes,String fileName,String fileType){
         try{
             ByteArrayInputStream bais = new ByteArrayInputStream(bytes);
             BufferedImage bi1 = ImageIO.read(bais);
-            File out = new File("C:\\Users\\Administrator\\Desktop\\test.png");
-            ImageIO.write(bi1,"png",out);
+            File out = new File(fileName);
+            ImageIO.write(bi1,fileType ,out);
+            return true;
         }catch (IOException e){
             e.printStackTrace();
+            return false;
         }
     }
+
     //verify:""
     public boolean setEncryptionAttr(String code, String filename){
         try {
