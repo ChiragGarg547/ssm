@@ -33,4 +33,7 @@ public interface ITUserDao {
 
     @Insert("insert into T_USER (user_name, password) values (#{username,jdbcType=VARCHAR},#{password,jdbcType=VARCHAR})")
     Integer insertNewUser(String username,String password);
+
+    @Select("select int_id from T_USER where user_name = #{username}")
+    Integer selectUserIdByUsername(String username);
 }

@@ -1,13 +1,13 @@
 package com.app.controller;
 
-import com.app.entity.ImgBackInfo;
-import com.app.entity.TUser;
-import com.app.entity.UserInfo;
+import com.app.entity.*;
+import com.app.service.IImageService;
 import com.app.service.IParamService;
 import com.app.service.IUserService;
 import com.google.common.primitives.Bytes;
 import com.zzuli.eassy.ByteHexUtil;
 import com.zzuli.eassy.FileTool;
+import com.zzuli.eassy.RSAImplement;
 import com.zzuli.eassy.SHAImplement;
 import org.apache.commons.fileupload.FileItem;
 import org.apache.commons.fileupload.disk.DiskFileItemFactory;
@@ -22,6 +22,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.core.Context;
 import java.io.File;
+import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -36,6 +37,19 @@ import java.util.List;
 @RequestMapping("/file")
 public class FileController {
 
+    @Autowired
+    private IImageService imageService;
+
+    @Autowired
+    private IUserService userService;
+
+    @Autowired
+    private IParamService paramService;
+
+    private static String ORI = "ORI";
+
+    private static String DEAL = "DEAL";
+
     @PostMapping("/imgUpload")
     @Consumes("multipart/form-data;charset=utf-8")
     public ImgBackInfo imgUpload(@Context HttpServletRequest request, @Context HttpServletResponse response){
@@ -44,7 +58,7 @@ public class FileController {
 
         ServletFileUpload fileUpload = new ServletFileUpload(factory);
 
-        String username, fileName = "", savePath = "";
+        String username = "", fileName = "", savePath = "";
 
         ImgBackInfo backInfo = new ImgBackInfo();
 
@@ -73,10 +87,14 @@ public class FileController {
                     }
                 }
             }
+            Integer userId = userService.selectUserIdByUsername(username);
+            TParam userParam = paramService.selectParamByUserId(userId);
+            RSAImplement rsa = new RSAImplement(new BigInteger(userParam.getPriKey()),new BigInteger(userParam.getPubKey()));
             FileTool ft = new FileTool();
             //图片加密另存一份
-            String actualFileName = savePath + "/" + fileName;
+            String actualFileName = savePath + "/" + fileName;//原图url
             String code = ft.getEncryptionAttr(actualFileName);
+            String newFileName = savePath + "/safe/" + fileName;//加密图url
             if(!StringUtils.isEmpty(code)){
                 //图片加密
                 byte[] fileBs = FileTool.readImg(actualFileName);
@@ -84,22 +102,37 @@ public class FileController {
                 for(int i = 0; i < fileBs.length; i++){
                     list.add(fileBs[i]);
                 }
+                //获取摘要
                 String digest = sha.process(fileBs);
-                byte[] bDigest = ByteHexUtil.Hex2Byte(digest);
-                for(int i = 0; i < bDigest.length; i++){
-                    list.add(bDigest[i]);
+                byte[] bDigest = digest.getBytes();
+                BigInteger bigIntegerDigest = new BigInteger(bDigest);
+                code = rsa.encrypt(bigIntegerDigest).toString();
+                if(FileTool.generateImg(fileBs,newFileName,fileName.substring(fileName.lastIndexOf('.') + 1))){
+                    //设置加密信息
+                    ft.setEncryptionAttr(code,newFileName);
+                    //记录图片信息
+                    //原图
+                    TImage img = new TImage();
+                    img.setImgType(ORI);
+                    img.setUrl(actualFileName);
+                    img.setUserId(userId);
+                    imageService.insertImg(img);
+                    //加密图
+                    img.setImgType(DEAL);
+                    img.setUrl(newFileName);
+                    imageService.insertImg(img);
+                    backInfo.setSuccess(true);
+                    backInfo.setBackInfo("上传&加密成功");
                 }
-                fileBs = Bytes.toArray(list);
-                //FileTool.generateImg(fileBs)
             }else{
                 backInfo.setBackInfo("图片已加密");
-                return backInfo;
+                backInfo.setSuccess(false);
             }
-            //记录图片信息
 
         }catch (Exception e ){
             e.printStackTrace();
+            return backInfo;
         }
-        return null;
+        return backInfo;
     }
 }

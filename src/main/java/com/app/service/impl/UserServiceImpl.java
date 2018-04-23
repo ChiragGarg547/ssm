@@ -64,4 +64,9 @@ public class UserServiceImpl implements IUserService {
         }
         return 0;
     }
+
+    @Override
+    public Integer selectUserIdByUsername(String username) {
+        return userDao.selectUserIdByUsername(username);
+    }
 }

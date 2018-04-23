@@ -23,4 +23,6 @@ public interface ITParamDao {
 
     @Select("select pub_key from T_PARAM where user_id = (select user_id from T_USER where user_name = #{username})")
     String getPublicKey(String username);
+
+    TParam selectByUserId(Integer userId);
 }

@@ -1,5 +1,7 @@
 package com.app.service;
 
+import com.app.entity.TParam;
+
 /**
  * <p>
  * Author: Administrator
@@ -9,4 +11,7 @@ package com.app.service;
 public interface IParamService {
 
     String getPublicKey(String username);
+
+    TParam selectParamByUserId(Integer userId);
+
 }

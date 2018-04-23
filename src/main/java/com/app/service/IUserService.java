@@ -20,4 +20,6 @@ public interface IUserService {
     boolean queryUsernameExist(String username);
 
     Integer insertNewUser(String username,String password);
+
+    Integer selectUserIdByUsername(String username);
 }
