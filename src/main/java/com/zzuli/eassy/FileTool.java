@@ -1,16 +1,16 @@
 package com.zzuli.eassy;
 
+import org.apache.commons.io.FileUtils;
+
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
-import java.io.File;
-import java.io.IOException;
+import java.io.*;
 import java.nio.ByteBuffer;
 import java.nio.charset.Charset;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.nio.file.attribute.BasicFileAttributeView;
 import java.nio.file.attribute.UserDefinedFileAttributeView;
 
 /**
@@ -22,6 +22,8 @@ import java.nio.file.attribute.UserDefinedFileAttributeView;
 public class FileTool {
 
     private static UserDefinedFileAttributeView userDefinedFileAttributeView;
+
+    private static BasicFileAttributeView basicFileAttributeView;
 
     private static final String key = "code";
     public static byte[] readImg(String fileName){
@@ -56,6 +58,7 @@ public class FileTool {
     public boolean setEncryptionAttr(String code, String filename){
         try {
             Path path = Paths.get(filename);
+            basicFileAttributeView = Files.getFileAttributeView(path,BasicFileAttributeView.class);
             userDefinedFileAttributeView = Files.getFileAttributeView(path, UserDefinedFileAttributeView.class);
             userDefinedFileAttributeView.write(key, Charset.defaultCharset().encode(code));
             return true;
@@ -81,18 +84,42 @@ public class FileTool {
         }
     }
 
-    public static void main(String[] args) {
+    public static boolean copyFile(String srcPath, String destPath) throws IOException {
+
+        // 打开输入流
+        FileInputStream fis = new FileInputStream(srcPath);
+        // 打开输出流
+        FileOutputStream fos = new FileOutputStream(destPath);
+
+        // 读取和写入信息
+        int len = 0;
+        // 创建一个字节数组，当做缓冲区
+        byte[] b = new byte[1024];
+        while ((len = fis.read(b)) != -1) {
+            fos.write(b);
+        }
+
+        // 关闭流  先开后关  后开先关
+        fos.close(); // 后开先关
+        fis.close(); // 先开后关
+        return true;
+    }
+
+    public static void main(String[] args) throws IOException {
         FileTool ft = new FileTool();
-        ft.setEncryptionAttr("shdjkahdjashdjkashdjhaskdhasdkjasdhk","C:\\Users\\Administrator\\Desktop\\1.png");
-        System.out.println(ft.getEncryptionAttr("C:\\Users\\Administrator\\Desktop\\1.png"));
+//        ft.setEncryptionAttr("shdjkahdjashdjkashdjhaskdhasdkjasdhk","C:\\Users\\Administrator\\Desktop\\1.png");
+//        System.out.println(ft.getEncryptionAttr("D:\\Intell_workspace\\ssm\\target\\signature\\img\\safe\\me.jpg"));
+//        FileTool.copyFile("D:\\Intell_workspace\\ssm\\target\\signature\\img\\safe\\me.jpg","C:\\Users\\Administrator\\Desktop\\aaa.jpg");
+//
+//        System.out.println(ft.getEncryptionAttr("C:\\Users\\Administrator\\Desktop\\aaa.jpg"));
 
 
 
 //        SHAImplement sha = new SHAImplement();
-        RSAImplement rsa = new RSAImplement();
-        byte[] bs = FileTool.readImg("C:\\Users\\Administrator\\Desktop\\1.png");
-        byte[] s = FileTool.readImg("C:\\Users\\Administrator\\Desktop\\2.png");
-        System.out.println(bs.length +  "              "+ s.length);
+//        RSAImplement rsa = new RSAImplement();
+        System.out.println(ft.getEncryptionAttr("D:\\Intell_workspace\\ssm\\target\\signature\\img\\safe\\me.jpg"));
+        byte[] bs = FileTool.readImg("D:\\Intell_workspace\\ssm\\target\\signature\\img\\safe\\me.jpg");
+        bs = FileTool.readImg("D:\\Intell_workspace\\ssm\\target\\signature\\img\\me.jpg");
 //        System.out.println(bs.length);
 //        List<Byte> list = new ArrayList<Byte>();
 //        for(int i = 0; i < bs.length; i++){
@@ -105,7 +132,9 @@ public class FileTool {
 //        }
 //        System.out.println(list.size());
 //        bs = Bytes.toArray(list);
-//        FileTool.generateImg(bs);
+          FileTool.generateImg(bs,"C:\\Users\\Administrator\\Desktop\\aaa.jpg","jpg");
+        bs = FileTool.readImg("C:\\Users\\Administrator\\Desktop\\aaa.jpg");
+        System.out.println(ft.getEncryptionAttr("C:\\Users\\Administrator\\Desktop\\aaa.jpg"));
 //        bs = FileTool.readImg("C:\\Users\\Administrator\\Desktop\\test.png");
 //        System.out.println(bs.length);
     }

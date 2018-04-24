@@ -9,7 +9,7 @@
     <result column="IMG_TYPE" property="imgType" jdbcType="VARCHAR" />
   </resultMap>
   <sql id="Base_Column_List" >
-    IMG_ID, IMG_NAME, USER_ID, URL, IMG_TYPE
+    IMG_ID, IMG_CODE, USER_ID, URL, IMG_TYPE
   </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 
@@ -24,7 +24,7 @@
   <insert id="insert" parameterType="com.app.entity.TImage" >
     insert into T_IMAGE (IMG_ID, IMG_NAME, USER_ID, 
       URL, IMG_TYPE)
-    values (#{imgId,jdbcType=INTEGER}, #{imgName,jdbcType=VARCHAR}, #{userId,jdbcType=INTEGER}, 
+    values (#{imgId,jdbcType=INTEGER}, #{imgCode,jdbcType=VARCHAR}, #{userId,jdbcType=INTEGER},
       #{url,jdbcType=VARCHAR}, #{imgType,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.app.entity.TImage" >
@@ -33,8 +33,8 @@
       <if test="imgId != null" >
         IMG_ID,
       </if>
-      <if test="imgName != null" >
-        IMG_NAME,
+      <if test="imgCode != null" >
+        IMG_CODE,
       </if>
       <if test="userId != null" >
         USER_ID,
@@ -50,8 +50,8 @@
       <if test="imgId != null" >
         #{imgId,jdbcType=INTEGER},
       </if>
-      <if test="imgName != null" >
-        #{imgName,jdbcType=VARCHAR},
+      <if test="imgCode != null" >
+        #{imgCode,jdbcType=VARCHAR},
       </if>
       <if test="userId != null" >
         #{userId,jdbcType=INTEGER},
@@ -68,7 +68,7 @@
     update T_IMAGE
     <set >
       <if test="imgName != null" >
-        IMG_NAME = #{imgName,jdbcType=VARCHAR},
+        IMG_CODE = #{imgCode,jdbcType=VARCHAR},
       </if>
       <if test="userId != null" >
         USER_ID = #{userId,jdbcType=INTEGER},
@@ -84,7 +84,7 @@
   </update>
   <update id="updateByPrimaryKey" parameterType="com.app.entity.TImage" >
     update T_IMAGE
-    set IMG_NAME = #{imgName,jdbcType=VARCHAR},
+    set IMG_CODE = #{imgCode,jdbcType=VARCHAR},
       USER_ID = #{userId,jdbcType=INTEGER},
       URL = #{url,jdbcType=VARCHAR},
       IMG_TYPE = #{imgType,jdbcType=VARCHAR}

@@ -4,8 +4,6 @@ import com.app.entity.*;
 import com.app.service.IImageService;
 import com.app.service.IParamService;
 import com.app.service.IUserService;
-import com.google.common.primitives.Bytes;
-import com.zzuli.eassy.ByteHexUtil;
 import com.zzuli.eassy.FileTool;
 import com.zzuli.eassy.RSAImplement;
 import com.zzuli.eassy.SHAImplement;
@@ -71,64 +69,52 @@ public class FileController {
             while (itr.hasNext()){
                 FileItem item = (FileItem) itr.next();
                 if(item.isFormField()){
-                    if(item.getFieldName() == "username"){
+                    if("username".equals(item.getFieldName())){
                         username = item.getString("UTF-8");
                     }
                 }else{
                     if(item.getName() != null && !item.getName().equals("")){
                         fileName = item.getName();
-                        System.out.println("上传文件的大小:" + item.getSize());
-                        System.out.println("上传文件的类型:" + item.getContentType());
-                        System.out.println("上传文件的名称:" + item.getName());
                         //获取到当前目录
                         savePath = request.getSession().getServletContext().getRealPath("/");
-                        savePath += "/img";
+                        savePath += "img\\";
+                        //图片存在目录下
                         FileUtils.copyInputStreamToFile(item.getInputStream(), new File(savePath,item.getName()));
                     }
                 }
             }
+            //图片字节流获取，加密检测，加密
             Integer userId = userService.selectUserIdByUsername(username);
             TParam userParam = paramService.selectParamByUserId(userId);
             RSAImplement rsa = new RSAImplement(new BigInteger(userParam.getPriKey()),new BigInteger(userParam.getPubKey()));
             FileTool ft = new FileTool();
-            //图片加密另存一份
-            String actualFileName = savePath + "/" + fileName;//原图url
-            String code = ft.getEncryptionAttr(actualFileName);
-            String newFileName = savePath + "/safe/" + fileName;//加密图url
-            if(!StringUtils.isEmpty(code)){
-                //图片加密
-                byte[] fileBs = FileTool.readImg(actualFileName);
-                List<Byte> list = new ArrayList<Byte>();
-                for(int i = 0; i < fileBs.length; i++){
-                    list.add(fileBs[i]);
-                }
-                //获取摘要
-                String digest = sha.process(fileBs);
-                byte[] bDigest = digest.getBytes();
-                BigInteger bigIntegerDigest = new BigInteger(bDigest);
-                code = rsa.encrypt(bigIntegerDigest).toString();
-                if(FileTool.generateImg(fileBs,newFileName,fileName.substring(fileName.lastIndexOf('.') + 1))){
-                    //设置加密信息
-                    ft.setEncryptionAttr(code,newFileName);
-                    //记录图片信息
-                    //原图
-                    TImage img = new TImage();
-                    img.setImgType(ORI);
-                    img.setUrl(actualFileName);
-                    img.setUserId(userId);
-                    imageService.insertImg(img);
-                    //加密图
-                    img.setImgType(DEAL);
-                    img.setUrl(newFileName);
-                    imageService.insertImg(img);
-                    backInfo.setSuccess(true);
-                    backInfo.setBackInfo("上传&加密成功");
-                }
-            }else{
-                backInfo.setBackInfo("图片已加密");
-                backInfo.setSuccess(false);
+            //获取上传图片的code
+            String code = "";
+            String actualFileName = savePath + fileName;//上传的图片url
+            byte[] fileBs = FileTool.readImg(actualFileName);
+            List<Byte> list = new ArrayList<Byte>();
+            for(int i = 0; i < fileBs.length; i++){
+                list.add(fileBs[i]);
             }
+            //获取摘要
+            String digest = sha.process(fileBs);
+            byte[] bDigest = digest.getBytes();
+            BigInteger bigIntegerDigest = new BigInteger(bDigest);
+            //rsa密文
+            code = rsa.encrypt(bigIntegerDigest).toString();
+            //rsa密文byte数组
+            byte[] codeBs = code.getBytes();
+            //rsa密文摘要
+            code = sha.process(codeBs);
+            TImage img = new TImage();
+            img.setUrl(actualFileName);
+            img.setImgType("ORI");
+            img.setUserId(userId);
+            img.setImgCode(code);
+            imageService.insertImg(img);
 
+            backInfo.setSuccess(true);
+            backInfo.setBackInfo("成功");
         }catch (Exception e ){
             e.printStackTrace();
             return backInfo;

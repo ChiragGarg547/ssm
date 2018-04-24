@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.app.dao.ITPermitDao" >
+  <resultMap id="BaseResultMap" type="com.app.entity.TPermit" >
+    <id column="P_ID" property="pId" jdbcType="INTEGER" />
+    <result column="REQ_USER_ID" property="reqUserId" jdbcType="INTEGER" />
+    <result column="REQ_IMG_ID" property="reqImgId" jdbcType="INTEGER" />
+    <result column="IS_PERMIT" property="isPermit" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    P_ID, REQ_USER_ID, REQ_IMG_ID, IS_PERMIT
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from T_PERMIT
+    where P_ID = #{pId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from T_PERMIT
+    where P_ID = #{pId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.app.entity.TPermit" >
+    insert into T_PERMIT (P_ID, REQ_USER_ID, REQ_IMG_ID, 
+      IS_PERMIT)
+    values (#{pId,jdbcType=INTEGER}, #{reqUserId,jdbcType=INTEGER}, #{reqImgId,jdbcType=INTEGER}, 
+      #{isPermit,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.app.entity.TPermit" >
+    insert into T_PERMIT
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="pId != null" >
+        P_ID,
+      </if>
+      <if test="reqUserId != null" >
+        REQ_USER_ID,
+      </if>
+      <if test="reqImgId != null" >
+        REQ_IMG_ID,
+      </if>
+      <if test="isPermit != null" >
+        IS_PERMIT,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="pId != null" >
+        #{pId,jdbcType=INTEGER},
+      </if>
+      <if test="reqUserId != null" >
+        #{reqUserId,jdbcType=INTEGER},
+      </if>
+      <if test="reqImgId != null" >
+        #{reqImgId,jdbcType=INTEGER},
+      </if>
+      <if test="isPermit != null" >
+        #{isPermit,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.app.entity.TPermit" >
+    update T_PERMIT
+    <set >
+      <if test="reqUserId != null" >
+        REQ_USER_ID = #{reqUserId,jdbcType=INTEGER},
+      </if>
+      <if test="reqImgId != null" >
+        REQ_IMG_ID = #{reqImgId,jdbcType=INTEGER},
+      </if>
+      <if test="isPermit != null" >
+        IS_PERMIT = #{isPermit,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where P_ID = #{pId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.app.entity.TPermit" >
+    update T_PERMIT
+    set REQ_USER_ID = #{reqUserId,jdbcType=INTEGER},
+      REQ_IMG_ID = #{reqImgId,jdbcType=INTEGER},
+      IS_PERMIT = #{isPermit,jdbcType=VARCHAR}
+    where P_ID = #{pId,jdbcType=INTEGER}
+  </update>
+</mapper>

@@ -5,7 +5,7 @@ import java.io.Serializable;
 public class TImage implements Serializable {
     private Integer imgId;
 
-    private String imgName;
+    private String imgCode;
 
     private Integer userId;
 
@@ -23,12 +23,12 @@ public class TImage implements Serializable {
         this.imgId = imgId;
     }
 
-    public String getImgName() {
-        return imgName;
+    public String getImgCode() {
+        return imgCode;
     }
 
-    public void setImgName(String imgName) {
-        this.imgName = imgName;
+    public void setImgCode(String imgCode) {
+        this.imgCode = imgCode;
     }
 
     public Integer getUserId() {
@@ -68,7 +68,7 @@ public class TImage implements Serializable {
         }
         TImage other = (TImage) that;
         return (this.getImgId() == null ? other.getImgId() == null : this.getImgId().equals(other.getImgId()))
-            && (this.getImgName() == null ? other.getImgName() == null : this.getImgName().equals(other.getImgName()))
+            && (this.getImgCode() == null ? other.getImgCode() == null : this.getImgCode().equals(other.getImgCode()))
             && (this.getUserId() == null ? other.getUserId() == null : this.getUserId().equals(other.getUserId()))
             && (this.getUrl() == null ? other.getUrl() == null : this.getUrl().equals(other.getUrl()))
             && (this.getImgType() == null ? other.getImgType() == null : this.getImgType().equals(other.getImgType()));
@@ -79,7 +79,7 @@ public class TImage implements Serializable {
         final int prime = 31;
         int result = 1;
         result = prime * result + ((getImgId() == null) ? 0 : getImgId().hashCode());
-        result = prime * result + ((getImgName() == null) ? 0 : getImgName().hashCode());
+        result = prime * result + ((getImgCode() == null) ? 0 : getImgCode().hashCode());
         result = prime * result + ((getUserId() == null) ? 0 : getUserId().hashCode());
         result = prime * result + ((getUrl() == null) ? 0 : getUrl().hashCode());
         result = prime * result + ((getImgType() == null) ? 0 : getImgType().hashCode());
