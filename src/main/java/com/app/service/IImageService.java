@@ -2,6 +2,8 @@ package com.app.service;
 
 import com.app.entity.TImage;
 
+import java.util.List;
+
 /**
  * <p>
  * Author: Administrator
@@ -11,5 +13,7 @@ import com.app.entity.TImage;
 public interface IImageService {
 
     Integer insertImg(TImage img);
+
+    List<TImage> selectImgByUsername(String username);
 
 }

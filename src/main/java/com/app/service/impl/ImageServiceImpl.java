@@ -6,6 +6,8 @@ import com.app.service.IImageService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 /**
  * <p>
  * Author: Administrator
@@ -21,6 +23,11 @@ public class ImageServiceImpl implements IImageService {
     @Override
     public Integer insertImg(TImage img) {
         return imageDao.insertSelective(img);
+    }
+
+    @Override
+    public List<TImage> selectImgByUsername(String username) {
+        return imageDao.selectImgByUsername(username);
     }
 
 }

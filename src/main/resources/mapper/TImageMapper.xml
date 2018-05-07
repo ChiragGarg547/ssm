@@ -7,9 +7,10 @@
     <result column="USER_ID" property="userId" jdbcType="INTEGER" />
     <result column="URL" property="url" jdbcType="VARCHAR" />
     <result column="IMG_TYPE" property="imgType" jdbcType="VARCHAR" />
+    <result column="REMARK" property="remark" jdbcType="VARCHAR" />
   </resultMap>
   <sql id="Base_Column_List" >
-    IMG_ID, IMG_CODE, USER_ID, URL, IMG_TYPE
+    IMG_ID, IMG_CODE, USER_ID, URL, IMG_TYPE,REMARK
   </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 
@@ -23,9 +24,9 @@
   </delete>
   <insert id="insert" parameterType="com.app.entity.TImage" >
     insert into T_IMAGE (IMG_ID, IMG_NAME, USER_ID, 
-      URL, IMG_TYPE)
+      URL, IMG_TYPE,REMARK)
     values (#{imgId,jdbcType=INTEGER}, #{imgCode,jdbcType=VARCHAR}, #{userId,jdbcType=INTEGER},
-      #{url,jdbcType=VARCHAR}, #{imgType,jdbcType=VARCHAR})
+      #{url,jdbcType=VARCHAR}, #{imgType,jdbcType=VARCHAR},#{remark,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.app.entity.TImage" >
     insert into T_IMAGE
@@ -45,6 +46,9 @@
       <if test="imgType != null" >
         IMG_TYPE,
       </if>
+      <if test="remark != null" >
+        REMARK,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="imgId != null" >
@@ -61,6 +65,9 @@
       </if>
       <if test="imgType != null" >
         #{imgType,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -79,6 +86,9 @@
       <if test="imgType != null" >
         IMG_TYPE = #{imgType,jdbcType=VARCHAR},
       </if>
+      <if test="remark != null" >
+        REMARK = #{remark,jdbcType=VARCHAR},
+      </if>
     </set>
     where IMG_ID = #{imgId,jdbcType=INTEGER}
   </update>
@@ -87,7 +97,8 @@
     set IMG_CODE = #{imgCode,jdbcType=VARCHAR},
       USER_ID = #{userId,jdbcType=INTEGER},
       URL = #{url,jdbcType=VARCHAR},
-      IMG_TYPE = #{imgType,jdbcType=VARCHAR}
+      IMG_TYPE = #{imgType,jdbcType=VARCHAR},
+      REMARK = #{remark,jdbcType=VARCHAR}
     where IMG_ID = #{imgId,jdbcType=INTEGER}
   </update>
 </mapper>

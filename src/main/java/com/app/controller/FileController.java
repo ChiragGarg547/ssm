@@ -121,4 +121,11 @@ public class FileController {
         }
         return backInfo;
     }
+
+    @GetMapping(value = "/getImgByUsername")
+    @ResponseBody
+    public List<TImage> checkLogin(@RequestParam(value = "username") String username){
+        return imageService.selectImgByUsername(username);
+
+    }
 }

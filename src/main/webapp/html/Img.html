@@ -1,0 +1,49 @@
+
+
+
+<div class="panel panel-info">
+    <div class="panel-heading">
+        个人图片管理
+    </div>
+    <div class="panel-body">
+        <button type="button" class="btn btn-info" style="margin-left: 20px;margin-bottom: 20px;" onclick="img.showUploadModal()">上传</button>
+        <div class="row">
+            <%for(var i = 0; i < data.length; i++){ var aData = data[i];%>
+            <div class="col-sm-6 col-md-4 col-lg-3 ">
+                <div class="thumbnail" style="height: 200px;">
+                    <a>
+                        <img class="lazy" src="<%= aData.url %>" style="width: 300px !important;height: 150px !important;" alt="" oncontextmenu="return false;" onselectstart="return false;">
+                    </a>
+                    <div class="caption">
+                        <p> <%=aData.remark %></p>
+                    </div>
+                </div>
+            </div>
+            <%}%>
+        </div>
+
+
+    </div>
+</div>
+
+<div class="modal fade" tabindex="-1" role="dialog" id="uploadModal">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">上传图片</h4>
+            </div>
+            <div class="modal-body">
+                <input type="file" id="img_up" style="margin-left: 20px;">
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                <button type="button" class="btn btn-primary"> 上传</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+
+
+

@@ -13,6 +13,8 @@ public class TImage implements Serializable {
 
     private String imgType;
 
+    private String remark;
+
     private static final long serialVersionUID = 1L;
 
     public Integer getImgId() {
@@ -71,7 +73,8 @@ public class TImage implements Serializable {
             && (this.getImgCode() == null ? other.getImgCode() == null : this.getImgCode().equals(other.getImgCode()))
             && (this.getUserId() == null ? other.getUserId() == null : this.getUserId().equals(other.getUserId()))
             && (this.getUrl() == null ? other.getUrl() == null : this.getUrl().equals(other.getUrl()))
-            && (this.getImgType() == null ? other.getImgType() == null : this.getImgType().equals(other.getImgType()));
+            && (this.getImgType() == null ? other.getImgType() == null : this.getImgType().equals(other.getImgType()))
+                && (this.getRemark() == null ? other.getRemark() == null : this.getRemark().equals(other.getRemark()));
     }
 
     @Override
@@ -83,6 +86,15 @@ public class TImage implements Serializable {
         result = prime * result + ((getUserId() == null) ? 0 : getUserId().hashCode());
         result = prime * result + ((getUrl() == null) ? 0 : getUrl().hashCode());
         result = prime * result + ((getImgType() == null) ? 0 : getImgType().hashCode());
+        result = prime * result + ((getRemark() == null) ? 0 : getRemark().hashCode());
         return result;
+    }
+
+    public String getRemark() {
+        return remark;
+    }
+
+    public void setRemark(String remark) {
+        this.remark = remark;
     }
 }
