@@ -16,4 +16,6 @@ public interface IImageService {
 
     List<TImage> selectImgByUsername(String username);
 
+    List<TImage> selectOtherImgByUsername(String username);
+
 }

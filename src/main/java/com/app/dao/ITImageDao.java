@@ -22,4 +22,7 @@ public interface ITImageDao {
 
     @Select("select * from T_IMAGE where USER_ID = (select INT_ID from T_USER where USER_NAME = #{username})")
     List<TImage> selectImgByUsername(String username);
+
+    @Select("select * from T_IMAGE where USER_ID <> (select INT_ID from T_USER where USER_NAME = #{username})")
+    List<TImage> selectOtherImgByUsername(String username);
 }

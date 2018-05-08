@@ -80,7 +80,10 @@
                                 <a onclick="img.loadImgPage()"><i class="fa fa-photo fa-fw"></i> 图片管理</a>
                             </li>
                             <li>
-                                <a><i class="fa fa-male fa-fw"></i> 授权管理</a>
+                                <a onclick="imgHouse.loadImgHousePage()"><i class="fa fa-cubes fa-fw"></i> 图片库</a>
+                            </li>
+                            <li>
+                                <a><i class="fa fa-key fa-fw"></i> 授权管理</a>
                             </li>
                             <li>
                                 <a><i class="fa fa-male fa-fw"></i> 个人管理</a>
@@ -93,7 +96,7 @@
             </nav>
 
             <!-- Page Content -->
-            <div id="page-wrapper">
+            <div id="page-wrapper" style="padding-top: 20px;">
             </div>
             <!-- /#page-wrapper -->
 
@@ -111,6 +114,7 @@
     <script src="asset/js/localResource.js"></script>
     <script src="asset/js/util/util.js"></script>
     <script src="asset/js/img.js"></script>
+    <script src="asset/js/imgHouse.js"></script>
     <script>
         $(document).ready(function () {
             GParam.username = window.localStorage.getItem('username');

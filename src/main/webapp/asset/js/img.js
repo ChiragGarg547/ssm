@@ -1,10 +1,16 @@
 var img = {
     uploadImg : function () {
+        var self = img;
         var formData = new FormData();
         var uploadFile = $("#img_up").get(0).files[0];
         var username = GParam.username;
+        var remark = $("#img_remark").val();
+        var img_name = $("#img_name").val();
         formData.append('uploadFile',uploadFile);
         formData.append('username',username);
+        formData.append('imgName',img_name);
+        formData.append('remark',remark);
+
         $.ajax({
             url:'/file/imgUpload',
             type:'POST',
@@ -15,7 +21,8 @@ var img = {
             processData: false, //不处理数据
             success:function(data){
                 console.log(data);
-                alert(data.msg);
+                self.loadImgPage();
+                self.hideUploadModal();
             },
             error:function(){
                 alert("上传失败！");
@@ -29,7 +36,7 @@ var img = {
         }
         getSourceFromWeb( '/file/getImgByUsername', 'get', aData,function (ImgInfo) {
             getLocalResource("html/Img.html",function (source) {
-                mixDataAndTemplate(source,{data:ImgInfo},function(res){
+                mixDataAndTemplate(source,{data:ImgInfo,username:GParam.username},function(res){
                     $("#page-wrapper").html(res);
                 });
             });
@@ -37,5 +44,10 @@ var img = {
     }
     ,showUploadModal:function () {
         $("#uploadModal").modal('show');
+    }
+    ,hideUploadModal:function () {
+        var self = img;
+        $("#uploadModal").modal('hide');
+        self.loadImgPage();
     }
 }

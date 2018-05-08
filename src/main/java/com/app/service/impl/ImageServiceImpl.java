@@ -30,4 +30,9 @@ public class ImageServiceImpl implements IImageService {
         return imageDao.selectImgByUsername(username);
     }
 
+    @Override
+    public List<TImage> selectOtherImgByUsername(String username) {
+        return imageDao.selectOtherImgByUsername(username);
+    }
+
 }

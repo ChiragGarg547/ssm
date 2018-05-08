@@ -24,6 +24,7 @@ import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.UUID;
 
 /**
  * <p>
@@ -62,6 +63,8 @@ public class FileController {
 
         SHAImplement sha = new SHAImplement();
 
+        String url = "",remark = "", img_name = "", uuidName = "";
+
         try {
             fileUpload.setHeaderEncoding("utf-8");
             List<FileItem> lists = fileUpload.parseRequest(request);
@@ -72,6 +75,12 @@ public class FileController {
                     if("username".equals(item.getFieldName())){
                         username = item.getString("UTF-8");
                     }
+                    if("imgName".equals(item.getFieldName())){
+                        img_name = item.getString("UTF-8");
+                    }
+                    if("remark".equals(item.getFieldName())){
+                        remark = item.getString("UTF-8");
+                    }
                 }else{
                     if(item.getName() != null && !item.getName().equals("")){
                         fileName = item.getName();
@@ -79,7 +88,10 @@ public class FileController {
                         savePath = request.getSession().getServletContext().getRealPath("/");
                         savePath += "img\\";
                         //图片存在目录下
-                        FileUtils.copyInputStreamToFile(item.getInputStream(), new File(savePath,item.getName()));
+                        //记录的url为自动生成的字符串
+                        uuidName  = UUID.randomUUID() + fileName.substring(fileName.lastIndexOf('.'));
+                        url = "/img/" + uuidName;
+                        FileUtils.copyInputStreamToFile(item.getInputStream(), new File(savePath,uuidName));
                     }
                 }
             }
@@ -88,9 +100,8 @@ public class FileController {
             TParam userParam = paramService.selectParamByUserId(userId);
             RSAImplement rsa = new RSAImplement(new BigInteger(userParam.getPriKey()),new BigInteger(userParam.getPubKey()));
             FileTool ft = new FileTool();
-            //获取上传图片的code
             String code = "";
-            String actualFileName = savePath + fileName;//上传的图片url
+            String actualFileName = savePath + uuidName;//上传的图片url
             byte[] fileBs = FileTool.readImg(actualFileName);
             List<Byte> list = new ArrayList<Byte>();
             for(int i = 0; i < fileBs.length; i++){
@@ -107,14 +118,18 @@ public class FileController {
             //rsa密文摘要
             code = sha.process(codeBs);
             TImage img = new TImage();
-            img.setUrl(actualFileName);
-            img.setImgType("ORI");
+            img.setUrl(url);
+            img.setImgType(img_name);
             img.setUserId(userId);
             img.setImgCode(code);
-            imageService.insertImg(img);
-
-            backInfo.setSuccess(true);
-            backInfo.setBackInfo("成功");
+            img.setRemark(remark);
+            if (imageService.insertImg(img)>0){
+                backInfo.setSuccess(true);
+                backInfo.setBackInfo("成功");
+            }else{
+                backInfo.setSuccess(false);
+                backInfo.setBackInfo("图片保存失败");
+            }
         }catch (Exception e ){
             e.printStackTrace();
             return backInfo;
@@ -124,8 +139,17 @@ public class FileController {
 
     @GetMapping(value = "/getImgByUsername")
     @ResponseBody
-    public List<TImage> checkLogin(@RequestParam(value = "username") String username){
+    public List<TImage> getImgByUsername(@RequestParam(value = "username") String username){
+
         return imageService.selectImgByUsername(username);
+
+    }
+
+    @GetMapping(value = "/getOtherImgByUsername")
+    @ResponseBody
+    public List<TImage> getOtherImgByUsername(@RequestParam(value = "username") String username){
+
+        return imageService.selectOtherImgByUsername(username);
 
     }
 }
