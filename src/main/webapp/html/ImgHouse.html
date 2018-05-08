@@ -9,22 +9,21 @@
         <div class="row" style="text-align: center">
             <%for(var i = 0; i < data.length; i++){ var aData = data[i];%>
             <div class="col-sm-6 col-md-4 col-lg-3 ">
-                <div class="thumbnail" style="height: 300px;">
+                <div class="thumbnail" style="padding: 10px;  border: 2px solid #ddd;">
                     <a>
                         <img class="lazy" src="<%= aData.url %>" style="width: 300px !important;height: 150px !important;" alt="" oncontextmenu="return false;" onselectstart="return false;">
                     </a>
+                    <hr>
                     <div class="caption">
                         <h3><a><%=aData.imgType%><br><small>by @ </small></a></h3>
                         <p> <%=aData.remark %></p>
                     </div>
+                    <hr>
+                    <button type="button" class="btn btn-outline btn-info" style="float: left">申请访问</button>
+                    <button type="button" class="btn btn-outline btn-default" style="float: right">下载</button>
                 </div>
             </div>
             <%}%>
         </div>
-    </div>
-    <div class="panel-footer">
-        <button type="button" class="btn btn-outline btn-info">申请访问</button>
-        <button type="button" class="btn btn-outline btn-default" style="float: right">下载</button>
-
     </div>
 </div>

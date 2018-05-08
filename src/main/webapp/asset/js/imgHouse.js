@@ -6,8 +6,8 @@ var imgHouse= {
             username:GParam.username
         };
         getSourceFromWeb( '/file/getOtherImgByUsername', 'get', aData,function (ImgInfo) {
-            getLocalResource("html/Img.html",function (source) {
-                mixDataAndTemplate(source,{data:ImgInfo,username:GParam.username},function(res){
+            getLocalResource("html/ImgHouse.html",function (source) {
+                mixDataAndTemplate(source,{data:ImgInfo},function(res){
                     $("#page-wrapper").html(res);
                 });
             });

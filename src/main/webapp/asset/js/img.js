@@ -22,7 +22,6 @@ var img = {
             success:function(data){
                 console.log(data);
                 self.loadImgPage();
-                self.hideUploadModal();
             },
             error:function(){
                 alert("上传失败！");
@@ -48,6 +47,13 @@ var img = {
     ,hideUploadModal:function () {
         var self = img;
         $("#uploadModal").modal('hide');
-        self.loadImgPage();
+        $('#uploadModal').on('hidden.bs.modal', function (e) {
+            self.loadImgPage()
+        })
+    }
+    ,clearModal:function () {
+        $("#img_up").val("");
+        $("#img_remark").val("");
+        $("#img_name").val("");
     }
 }
