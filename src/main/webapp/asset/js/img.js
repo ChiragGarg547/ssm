@@ -21,7 +21,7 @@ var img = {
             processData: false, //不处理数据
             success:function(data){
                 console.log(data);
-                self.loadImgPage();
+                self.clearModal();
             },
             error:function(){
                 alert("上传失败！");
@@ -47,7 +47,7 @@ var img = {
     ,hideUploadModal:function () {
         var self = img;
         $("#uploadModal").modal('hide');
-        $('#uploadModal').on('hidden.bs.modal', function (e) {
+        $('#uploadModal').on('hidden.bs.modal', function () {
             self.loadImgPage()
         })
     }

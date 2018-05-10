@@ -128,7 +128,8 @@ public class FileController {
                     BigInteger bigIntegerDigest = new BigInteger(bDigest);
                     //rsa密文
                     code = rsa.encrypt(bigIntegerDigest).toString();
-                    imageService.updateImgCodeByImgId(imgId,code);
+                    img.setImgCode(code);
+                    imageService.updateImg(img);
                     backInfo.setSuccess(true);
                     backInfo.setBackInfo("成功");
                 }else{

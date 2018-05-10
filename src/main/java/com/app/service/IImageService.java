@@ -19,6 +19,6 @@ public interface IImageService {
 
     List<TImage> selectOtherImgByUsername(String username);
 
-    Integer updateImgCodeByImgId(Integer imgId,String code);
+    Integer updateImg(TImage img);
 
 }

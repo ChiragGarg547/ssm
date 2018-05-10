@@ -74,7 +74,7 @@
   <update id="updateByPrimaryKeySelective" parameterType="com.app.entity.TImage" >
     update T_IMAGE
     <set >
-      <if test="imgName != null" >
+      <if test="imgCode != null" >
         IMG_CODE = #{imgCode,jdbcType=VARCHAR},
       </if>
       <if test="userId != null" >

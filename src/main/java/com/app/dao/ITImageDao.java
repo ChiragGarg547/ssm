@@ -28,6 +28,6 @@ public interface ITImageDao {
     List<TImage> selectOtherImgByUsername(String username);
 
     @Update("update T_IMAGE SET IMG_CODE = #{code} where IMG_ID = #{imgId}")
-    Integer updateImgCodeByImgId(Integer imgId, String code);
+    Integer updateImgCodeByImgId(String code, Integer imgId);
 
 }

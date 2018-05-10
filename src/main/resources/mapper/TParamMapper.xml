@@ -39,7 +39,7 @@
         param_id,
       </if>
       <if test="imgId != null" >
-        imgId,
+        img_id,
       </if>
       <if test="pubKey != null" >
         pub_key,

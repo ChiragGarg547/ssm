@@ -36,8 +36,8 @@ public class ImageServiceImpl implements IImageService {
     }
 
     @Override
-    public Integer updateImgCodeByImgId(Integer imgId, String code) {
-        return imageDao.updateImgCodeByImgId(imgId,code);
+    public Integer updateImg(TImage img) {
+        return imageDao.updateByPrimaryKeySelective(img);
     }
 
 }
