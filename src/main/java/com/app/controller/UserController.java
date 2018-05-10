@@ -39,8 +39,6 @@ public class UserController {
             back.setSuccess(false);
             String realPass = userService.selectPasswordByUsername(username);
             if (password.equals(realPass)){
-                String pk = paramService.getPublicKey(username);
-                back.setPublicKey(pk);
                 back.setUserName(username);
                 back.setSuccess(true);
             }

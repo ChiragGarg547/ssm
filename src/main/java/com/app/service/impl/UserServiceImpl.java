@@ -51,18 +51,16 @@ public class UserServiceImpl implements IUserService {
         TUser user = new TUser();
         user.setUserName(username);
         user.setPassword(password);
-        if (userDao.insertSelective(user) > 0){
-            RSAImplement rsa = new RSAImplement();
-            BigInteger pub = rsa.getN();
-            BigInteger pri = rsa.getD();
-            //insert param
-            TParam param = new TParam();
-            param.setUserId(user.getUserId());
-            param.setPriKey(pri.toString());
-            param.setPubKey(pub.toString());
-            return paramDao.insertSelective(param);
-        }
-        return 0;
+        return userDao.insertSelective(user);
+//        RSAImplement rsa = new RSAImplement();
+//        BigInteger pub = rsa.getN();
+//        BigInteger pri = rsa.getD();
+//        //insert param
+//        TParam param = new TParam();
+//        param.setUserId(user.getUserId());
+//        param.setPriKey(pri.toString());
+//        param.setPubKey(pub.toString());
+//        return paramDao.insertSelective(param);
     }
 
     @Override

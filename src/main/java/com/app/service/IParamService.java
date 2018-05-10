@@ -10,8 +10,8 @@ import com.app.entity.TParam;
  */
 public interface IParamService {
 
-    String getPublicKey(String username);
+    String getPublicKey(Integer imgId);
 
-    TParam selectParamByUserId(Integer userId);
+    Integer insertParam(TParam param);
 
 }

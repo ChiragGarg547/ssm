@@ -5,7 +5,7 @@ import java.io.Serializable;
 public class TParam implements Serializable {
     private Integer paramId;
 
-    private Integer userId;
+    private Integer imgId;
 
     private String pubKey;
 
@@ -21,12 +21,12 @@ public class TParam implements Serializable {
         this.paramId = paramId;
     }
 
-    public Integer getUserId() {
-        return userId;
+    public Integer getImgId() {
+        return imgId;
     }
 
-    public void setUserId(Integer userId) {
-        this.userId = userId;
+    public void setImgId(Integer imgId) {
+        this.imgId = imgId;
     }
 
     public String getPubKey() {
@@ -58,7 +58,7 @@ public class TParam implements Serializable {
         }
         TParam other = (TParam) that;
         return (this.getParamId() == null ? other.getParamId() == null : this.getParamId().equals(other.getParamId()))
-            && (this.getUserId() == null ? other.getUserId() == null : this.getUserId().equals(other.getUserId()))
+            && (this.getImgId() == null ? other.getImgId() == null : this.getImgId().equals(other.getImgId()))
             && (this.getPubKey() == null ? other.getPubKey() == null : this.getPubKey().equals(other.getPubKey()))
             && (this.getPriKey() == null ? other.getPriKey() == null : this.getPriKey().equals(other.getPriKey()));
     }
@@ -68,7 +68,7 @@ public class TParam implements Serializable {
         final int prime = 31;
         int result = 1;
         result = prime * result + ((getParamId() == null) ? 0 : getParamId().hashCode());
-        result = prime * result + ((getUserId() == null) ? 0 : getUserId().hashCode());
+        result = prime * result + ((getImgId() == null) ? 0 : getImgId().hashCode());
         result = prime * result + ((getPubKey() == null) ? 0 : getPubKey().hashCode());
         result = prime * result + ((getPriKey() == null) ? 0 : getPriKey().hashCode());
         return result;

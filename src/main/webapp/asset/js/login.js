@@ -9,7 +9,6 @@ var login={
         getSourceFromWeb( '/user/checkLogin', 'get', aData, function(res){
             if(res.success){
                 window.localStorage.setItem('username',res.userName)
-                window.localStorage.setItem('pubKey',res.publicKey)
                 window.location.href='mainpage.html';
             }else{
                 alert("密码错误！");

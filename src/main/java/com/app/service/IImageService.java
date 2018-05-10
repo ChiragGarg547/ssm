@@ -1,6 +1,7 @@
 package com.app.service;
 
 import com.app.entity.TImage;
+import org.apache.ibatis.annotations.Update;
 
 import java.util.List;
 
@@ -17,5 +18,7 @@ public interface IImageService {
     List<TImage> selectImgByUsername(String username);
 
     List<TImage> selectOtherImgByUsername(String username);
+
+    Integer updateImgCodeByImgId(Integer imgId,String code);
 
 }

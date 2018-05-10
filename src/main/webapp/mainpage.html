@@ -119,8 +119,6 @@
         $(document).ready(function () {
             GParam.username = window.localStorage.getItem('username');
             window.localStorage.removeItem('username');
-            GParam.publicKey = window.localStorage.getItem('publicKey');
-            window.localStorage.removeItem('publicKey');
             $("#userName").html('<i class=\"fa fa-user fa-fw\"><\/i> ' + GParam.username)
         });
     </script>

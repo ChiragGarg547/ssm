@@ -35,4 +35,9 @@ public class ImageServiceImpl implements IImageService {
         return imageDao.selectOtherImgByUsername(username);
     }
 
+    @Override
+    public Integer updateImgCodeByImgId(Integer imgId, String code) {
+        return imageDao.updateImgCodeByImgId(imgId,code);
+    }
+
 }

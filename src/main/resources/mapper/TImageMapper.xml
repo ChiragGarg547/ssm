@@ -23,12 +23,12 @@
     where IMG_ID = #{imgId,jdbcType=INTEGER}
   </delete>
   <insert id="insert" parameterType="com.app.entity.TImage" >
-    insert into T_IMAGE (IMG_ID, IMG_NAME, USER_ID, 
+    insert into T_IMAGE (IMG_ID, IMG_NAME, USER_ID,
       URL, IMG_TYPE,REMARK)
     values (#{imgId,jdbcType=INTEGER}, #{imgCode,jdbcType=VARCHAR}, #{userId,jdbcType=INTEGER},
       #{url,jdbcType=VARCHAR}, #{imgType,jdbcType=VARCHAR},#{remark,jdbcType=VARCHAR})
   </insert>
-  <insert id="insertSelective" parameterType="com.app.entity.TImage" >
+  <insert id="insertSelective" parameterType="com.app.entity.TImage" useGeneratedKeys="true" keyProperty="imgId">
     insert into T_IMAGE
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="imgId != null" >

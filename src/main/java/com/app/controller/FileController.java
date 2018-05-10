@@ -95,37 +95,46 @@ public class FileController {
                     }
                 }
             }
-            //图片字节流获取，加密检测，加密
             Integer userId = userService.selectUserIdByUsername(username);
-            TParam userParam = paramService.selectParamByUserId(userId);
-            RSAImplement rsa = new RSAImplement(new BigInteger(userParam.getPriKey()),new BigInteger(userParam.getPubKey()));
-            FileTool ft = new FileTool();
-            String code = "";
-            String actualFileName = savePath + uuidName;//上传的图片url
-            byte[] fileBs = FileTool.readImg(actualFileName);
-            List<Byte> list = new ArrayList<Byte>();
-            for(int i = 0; i < fileBs.length; i++){
-                list.add(fileBs[i]);
-            }
-            //获取摘要
-            String digest = sha.process(fileBs);
-            byte[] bDigest = digest.getBytes();
-            BigInteger bigIntegerDigest = new BigInteger(bDigest);
-            //rsa密文
-            code = rsa.encrypt(bigIntegerDigest).toString();
-            //rsa密文byte数组
-            byte[] codeBs = code.getBytes();
-            //rsa密文摘要
-            code = sha.process(codeBs);
+
             TImage img = new TImage();
             img.setUrl(url);
             img.setImgType(img_name);
             img.setUserId(userId);
-            img.setImgCode(code);
             img.setRemark(remark);
             if (imageService.insertImg(img)>0){
-                backInfo.setSuccess(true);
-                backInfo.setBackInfo("成功");
+                //生成图片的公钥密钥
+                Integer imgId = img.getImgId();
+                RSAImplement rsa = new RSAImplement();
+                BigInteger pub = rsa.getN();
+                BigInteger pri = rsa.getD();
+                //insert param
+                TParam param = new TParam();
+                param.setImgId(imgId);
+                param.setPriKey(pri.toString());
+                param.setPubKey(pub.toString());
+                if(paramService.insertParam(param) > 0){
+                    FileTool ft = new FileTool();
+                    String code = "";
+                    String actualFileName = savePath + uuidName;//上传的图片url
+                    byte[] fileBs = FileTool.readImg(actualFileName);
+                    List<Byte> list = new ArrayList<Byte>();
+                    for(int i = 0; i < fileBs.length; i++){
+                        list.add(fileBs[i]);
+                    }
+                    //获取摘要
+                    String digest = sha.process(fileBs);
+                    byte[] bDigest = digest.getBytes();
+                    BigInteger bigIntegerDigest = new BigInteger(bDigest);
+                    //rsa密文
+                    code = rsa.encrypt(bigIntegerDigest).toString();
+                    imageService.updateImgCodeByImgId(imgId,code);
+                    backInfo.setSuccess(true);
+                    backInfo.setBackInfo("成功");
+                }else{
+                    backInfo.setSuccess(false);
+                    backInfo.setBackInfo("图片保存失败");
+                }
             }else{
                 backInfo.setSuccess(false);
                 backInfo.setBackInfo("图片保存失败");

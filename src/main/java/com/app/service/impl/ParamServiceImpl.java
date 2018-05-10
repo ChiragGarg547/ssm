@@ -19,13 +19,13 @@ public class ParamServiceImpl implements IParamService {
     private ITParamDao paramDao;
 
     @Override
-    public String getPublicKey(String username) {
-        return paramDao.getPublicKey(username);
+    public String getPublicKey(Integer imgId) {
+        return paramDao.getPublicKey(imgId);
     }
 
     @Override
-    public TParam selectParamByUserId(Integer userId) {
-        return paramDao.selectByUserId(userId);
+    public Integer insertParam(TParam param) {
+        return paramDao.insertSelective(param);
     }
 
 }
