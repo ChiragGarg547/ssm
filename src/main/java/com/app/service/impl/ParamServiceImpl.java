@@ -28,4 +28,9 @@ public class ParamServiceImpl implements IParamService {
         return paramDao.insertSelective(param);
     }
 
+    @Override
+    public TParam selectParamByImgId(Integer imgId) {
+        return paramDao.selectByImgId(imgId);
+    }
+
 }

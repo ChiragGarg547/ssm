@@ -40,4 +40,9 @@ public class ImageServiceImpl implements IImageService {
         return imageDao.updateByPrimaryKeySelective(img);
     }
 
+    @Override
+    public String queryImgUrl(Integer imgId) {
+        return imageDao.queryImgUrl(imgId);
+    }
+
 }

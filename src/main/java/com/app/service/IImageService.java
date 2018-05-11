@@ -21,4 +21,6 @@ public interface IImageService {
 
     Integer updateImg(TImage img);
 
+    String queryImgUrl(Integer imgId);
+
 }

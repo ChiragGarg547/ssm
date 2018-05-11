@@ -21,7 +21,7 @@
                     <hr>
                     <button type="button" class="btn btn-outline btn-info" style="float: left" onclick="imgHouse.askPermit(<%=i%>)">申请访问</button>
                     <button type="button" class="btn btn-outline btn-success" style="float: left" onclick="imgHouse.getImgPubKey(<%=i%>)">获取访问代码</button>
-                    <button type="button" class="btn btn-outline btn-default" style="float: right" onclick="imgHouse.downloadImg(<%=i%>)">下载</button>
+                    <button type="button" class="btn btn-outline btn-default" style="float: right" onclick="imgHouse.showDownModal(<%=i%>)">下载</button>
                 </div>
             </div>
             <%}%>
@@ -38,14 +38,38 @@
             </div>
             <div class="modal-body">
                 <form role="form">
-                    <div class="form-group">
-                        <textarea class="form-control" rows="4" id="pubKey"></textarea>
+                    <div class="form-group has-success">
+                        <textarea class="form-control" rows="4" id="pubKey" disabled></textarea>
                     </div>
                 </form>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal" onclick="imgHouse.hideKeyModal()">关闭</button>
                 <button type="button" class="btn btn-primary" data-clipboard-target="#pubKey" id="clipBtn"> 复制</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+
+
+<div class="modal fade" tabindex="-1" role="dialog" id="downLoadModal">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">校验下载</h4>
+            </div>
+            <div class="modal-body">
+                <form role="form">
+                    <div class="form-group">
+                        <textarea class="form-control" rows="4" id="Key" placeholder="输入密钥"></textarea>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal" onclick="imgHouse.hideDownModal()">关闭</button>
+                <button type="button" class="btn btn-primary" onclick="imgHouse.downloadImg()"> 校验并下载</button>
             </div>
         </div><!-- /.modal-content -->
     </div><!-- /.modal-dialog -->

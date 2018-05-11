@@ -1,7 +1,9 @@
 var imgHouse= {
-    imgList : ''
+    imgList : [],
+    imgIndex: -1
     ,loadImgHousePage:function () {
-
+        imgHouse.imgList = []
+        imgHouse.imgIndex = -1
         new ClipboardJS('#clipBtn');
         //从服务器获取所有的该用户图片
         var aData = {
@@ -28,10 +30,18 @@ var imgHouse= {
 
         })
     }
-    ,downloadImg:function () {
+    ,downloadImg:function () {//校验并下载
+        var pubKey = $("#Key").val();
+        var imgId = imgHouse.imgList[imgHouse.imgIndex].imgId
+        var aData = {
+            imgId: imgId,
+            pubKey: pubKey
+        }
+        getSourceFromWeb('/file/downLoadImg' , 'get' , aData, function (res) {
 
+        })
     }
-    ,getImgPubKey:function (i, obj) {
+    ,getImgPubKey:function (i) {
         var img = imgHouse.imgList[i]
         var aData = {
             imgId : img.imgId,
@@ -48,5 +58,12 @@ var imgHouse= {
     }
     ,showKeyModal:function () {
         $("#keyClipModal").modal('show');
+    }
+    ,hideDownModal:function () {
+        $("#downLoadModal").modal('hide');
+    }
+    ,showDownModal:function (i) {
+        imgHouse.imgIndex = i;
+        $("#downLoadModal").modal('show');
     }
 }

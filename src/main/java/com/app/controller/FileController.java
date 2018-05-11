@@ -12,8 +12,11 @@ import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
 import org.apache.commons.io.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -161,5 +164,32 @@ public class FileController {
 
         return imageService.selectOtherImgByUsername(username);
 
+    }
+
+    @GetMapping(value = "/downLoadImg")
+    @ResponseBody
+    public ResponseEntity<byte[]> downLoadImg(@RequestParam(value = "imgId") Integer imgId, @RequestParam(value = "pubKey") String pubKey){
+        //校验
+        FileTool ft = new FileTool();
+        String code = "",savePath = "";
+        HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
+        savePath = request.getSession().getServletContext().getRealPath("/");
+        //获取图片url
+        String uuidName = imageService.queryImgUrl(imgId);
+        String actualFileName = savePath + uuidName;//上传的图片url
+        byte[] fileBs = FileTool.readImg(actualFileName);
+        List<Byte> list = new ArrayList<Byte>();
+        for(int i = 0; i < fileBs.length; i++){
+            list.add(fileBs[i]);
+        }
+        SHAImplement sha = new SHAImplement();
+        //获取摘要
+        String digest = sha.process(fileBs);
+        byte[] bDigest = digest.getBytes();
+        //未加密数据
+        BigInteger bigIntegerDigest = new BigInteger(bDigest);
+        TParam param = paramService.selectParamByImgId(imgId);
+        RSAImplement rsa = new RSAImplement(new BigInteger(param.getPriKey()),new BigInteger(pubKey));
+        return null;
     }
 }

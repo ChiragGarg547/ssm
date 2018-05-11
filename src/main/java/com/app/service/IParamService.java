@@ -14,4 +14,6 @@ public interface IParamService {
 
     Integer insertParam(TParam param);
 
+    TParam selectParamByImgId(Integer imgId);
+
 }

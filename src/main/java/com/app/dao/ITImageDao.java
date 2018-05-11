@@ -1,6 +1,7 @@
 package com.app.dao;
 
 import com.app.entity.TImage;
+import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
 import org.springframework.stereotype.Repository;
@@ -28,6 +29,9 @@ public interface ITImageDao {
     List<TImage> selectOtherImgByUsername(String username);
 
     @Update("update T_IMAGE SET IMG_CODE = #{code} where IMG_ID = #{imgId}")
-    Integer updateImgCodeByImgId(String code, Integer imgId);
+    Integer updateImgCodeByImgId(@Param("code") String code, @Param("imgId") Integer imgId);
+
+    @Select("select URL FROM T_IMAGE WHERE IMG_ID = #{imgId}")
+    String queryImgUrl(@Param("imgId") Integer imgId);
 
 }
