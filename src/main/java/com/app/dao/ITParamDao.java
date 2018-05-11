@@ -20,7 +20,7 @@ public interface ITParamDao {
 
     int updateByPrimaryKey(TParam record);
 
-    @Select("select pub_key from T_PARAM where img_id = #{imgId})")
+    @Select("select pub_key from T_PARAM where img_id = #{imgId}")
     String getPublicKey(Integer imgId);
 
     TParam selectByImgId(Integer imgId);

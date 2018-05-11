@@ -10,112 +10,113 @@
     <schema id="4" parent="1" name="mysql"/>
     <schema id="5" parent="1" name="performance_schema"/>
     <schema id="6" parent="1" name="test"/>
-    <table id="7" parent="2" name="T_IMAGE"/>
-    <table id="8" parent="2" name="T_PARAM"/>
-    <table id="9" parent="2" name="T_PERMIT"/>
-    <table id="10" parent="2" name="T_USER"/>
-    <column id="11" parent="7" name="IMG_ID">
+    <schema id="7" parent="1" name="PLEASE_READ_ME_XYZ"/>
+    <table id="8" parent="2" name="T_IMAGE"/>
+    <table id="9" parent="2" name="T_PARAM"/>
+    <table id="10" parent="2" name="T_PERMIT"/>
+    <table id="11" parent="2" name="T_USER"/>
+    <column id="12" parent="8" name="IMG_ID">
       <Position>1</Position>
       <DataType>int(11)|0</DataType>
       <NotNull>1</NotNull>
       <SequenceIdentity>1</SequenceIdentity>
     </column>
-    <column id="12" parent="7" name="IMG_CODE">
+    <column id="13" parent="8" name="IMG_CODE">
       <Position>2</Position>
       <DataType>varchar(3000)|0</DataType>
     </column>
-    <column id="13" parent="7" name="USER_ID">
+    <column id="14" parent="8" name="USER_ID">
       <Position>3</Position>
       <DataType>int(11)|0</DataType>
     </column>
-    <column id="14" parent="7" name="REMARK">
+    <column id="15" parent="8" name="REMARK">
       <Position>4</Position>
       <DataType>varchar(300)|0</DataType>
     </column>
-    <column id="15" parent="7" name="URL">
+    <column id="16" parent="8" name="URL">
       <Position>5</Position>
       <DataType>varchar(300)|0</DataType>
       <NotNull>1</NotNull>
     </column>
-    <column id="16" parent="7" name="IMG_TYPE">
+    <column id="17" parent="8" name="IMG_TYPE">
       <Position>6</Position>
       <DataType>varchar(300)|0</DataType>
     </column>
-    <key id="17" parent="7" name="PRIMARY">
+    <key id="18" parent="8" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>IMG_ID</ColNames>
       <Primary>1</Primary>
     </key>
-    <column id="18" parent="8" name="PARAM_ID">
+    <column id="19" parent="9" name="PARAM_ID">
       <Position>1</Position>
       <DataType>int(11)|0</DataType>
       <NotNull>1</NotNull>
       <SequenceIdentity>1</SequenceIdentity>
     </column>
-    <column id="19" parent="8" name="IMG_ID">
+    <column id="20" parent="9" name="IMG_ID">
       <Position>2</Position>
       <DataType>int(11)|0</DataType>
     </column>
-    <column id="20" parent="8" name="PUB_KEY">
+    <column id="21" parent="9" name="PUB_KEY">
       <Position>3</Position>
       <DataType>varchar(4000)|0</DataType>
     </column>
-    <column id="21" parent="8" name="PRI_KEY">
+    <column id="22" parent="9" name="PRI_KEY">
       <Position>4</Position>
       <DataType>varchar(4000)|0</DataType>
     </column>
-    <key id="22" parent="8" name="PRIMARY">
+    <key id="23" parent="9" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>PARAM_ID</ColNames>
       <Primary>1</Primary>
     </key>
-    <column id="23" parent="9" name="P_ID">
+    <column id="24" parent="10" name="P_ID">
       <Position>1</Position>
       <DataType>int(11)|0</DataType>
       <NotNull>1</NotNull>
       <SequenceIdentity>1</SequenceIdentity>
     </column>
-    <column id="24" parent="9" name="REQ_USER_ID">
+    <column id="25" parent="10" name="REQ_USER_ID">
       <Position>2</Position>
       <DataType>int(11)|0</DataType>
       <NotNull>1</NotNull>
     </column>
-    <column id="25" parent="9" name="REQ_IMG_ID">
+    <column id="26" parent="10" name="REQ_IMG_ID">
       <Position>3</Position>
       <DataType>int(11)|0</DataType>
     </column>
-    <column id="26" parent="9" name="IS_PERMIT">
+    <column id="27" parent="10" name="IS_PERMIT">
       <Position>4</Position>
       <DataType>varchar(1)|0</DataType>
     </column>
-    <index id="27" parent="9" name="T_PERMIT_P_ID_uindex">
+    <index id="28" parent="10" name="T_PERMIT_P_ID_uindex">
       <ColNames>P_ID</ColNames>
       <Unique>1</Unique>
     </index>
-    <key id="28" parent="9" name="PRIMARY">
+    <key id="29" parent="10" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>P_ID</ColNames>
       <Primary>1</Primary>
     </key>
-    <key id="29" parent="9" name="T_PERMIT_P_ID_uindex">
+    <key id="30" parent="10" name="T_PERMIT_P_ID_uindex">
       <ColNames>P_ID</ColNames>
       <UnderlyingIndexName>T_PERMIT_P_ID_uindex</UnderlyingIndexName>
     </key>
-    <column id="30" parent="10" name="INT_ID">
+    <column id="31" parent="11" name="INT_ID">
       <Position>1</Position>
       <DataType>int(11)|0</DataType>
       <NotNull>1</NotNull>
       <SequenceIdentity>1</SequenceIdentity>
     </column>
-    <column id="31" parent="10" name="USER_NAME">
+    <column id="32" parent="11" name="USER_NAME">
       <Position>2</Position>
       <DataType>varchar(50)|0</DataType>
     </column>
-    <column id="32" parent="10" name="PASSWORD">
+    <column id="33" parent="11" name="PASSWORD">
       <Position>3</Position>
       <DataType>varchar(100)|0</DataType>
     </column>
-    <key id="33" parent="10" name="PRIMARY">
+    <key id="34" parent="11" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>INT_ID</ColNames>
       <Primary>1</Primary>

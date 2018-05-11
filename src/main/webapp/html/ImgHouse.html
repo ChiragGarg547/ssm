@@ -9,7 +9,7 @@
         <div class="row" style="text-align: center">
             <%for(var i = 0; i < data.length; i++){ var aData = data[i];%>
             <div class="col-sm-6 col-md-4 col-lg-3 ">
-                <div class="thumbnail" style="padding: 10px;  border: 2px solid #ddd;">
+                <div class="thumbnail" style="height: 430px !important;  border: 2px solid #ddd;">
                     <a>
                         <img class="lazy" src="<%= aData.url %>" style="width: 300px !important;height: 150px !important;" alt="" oncontextmenu="return false;" onselectstart="return false;">
                     </a>
@@ -19,11 +19,35 @@
                         <p> <%=aData.remark %></p>
                     </div>
                     <hr>
-                    <button type="button" class="btn btn-outline btn-info" style="float: left">申请访问</button>
-                    <button type="button" class="btn btn-outline btn-default" style="float: right">下载</button>
+                    <button type="button" class="btn btn-outline btn-info" style="float: left" onclick="imgHouse.askPermit(<%=i%>)">申请访问</button>
+                    <button type="button" class="btn btn-outline btn-success" style="float: left" onclick="imgHouse.getImgPubKey(<%=i%>)">获取访问代码</button>
+                    <button type="button" class="btn btn-outline btn-default" style="float: right" onclick="imgHouse.downloadImg(<%=i%>)">下载</button>
                 </div>
             </div>
             <%}%>
         </div>
     </div>
 </div>
+
+<div class="modal fade" tabindex="-1" role="dialog" id="keyClipModal">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">密钥</h4>
+            </div>
+            <div class="modal-body">
+                <form role="form">
+                    <div class="form-group">
+                        <textarea class="form-control" rows="4" id="pubKey"></textarea>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal" onclick="imgHouse.hideKeyModal()">关闭</button>
+                <button type="button" class="btn btn-primary" data-clipboard-target="#pubKey" id="clipBtn"> 复制</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
