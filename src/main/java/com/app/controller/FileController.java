@@ -7,11 +7,15 @@ import com.app.service.IUserService;
 import com.zzuli.eassy.FileTool;
 import com.zzuli.eassy.RSAImplement;
 import com.zzuli.eassy.SHAImplement;
+import net.coobird.thumbnailator.Thumbnails;
 import org.apache.commons.fileupload.FileItem;
 import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
 import org.apache.commons.io.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
@@ -23,6 +27,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.core.Context;
 import java.io.File;
+import java.io.UnsupportedEncodingException;
 import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -68,6 +73,8 @@ public class FileController {
 
         String url = "",remark = "", img_name = "", uuidName = "";
 
+        String smallImgUrl = "", smallImgPath = "";
+
         try {
             fileUpload.setHeaderEncoding("utf-8");
             List<FileItem> lists = fileUpload.parseRequest(request);
@@ -93,8 +100,15 @@ public class FileController {
                         //图片存在目录下
                         //记录的url为自动生成的字符串
                         uuidName  = UUID.randomUUID() + fileName.substring(fileName.lastIndexOf('.'));
-                        url = "/img/" + uuidName;
+                        url = "img\\" + uuidName;
                         FileUtils.copyInputStreamToFile(item.getInputStream(), new File(savePath,uuidName));
+                        smallImgPath = savePath + "small\\";
+                        smallImgUrl = "img\\small\\" + uuidName;
+                        File dir = new File(smallImgPath);
+                        if(!dir.exists()){
+                            dir.mkdir();
+                        }
+                        Thumbnails.of(savePath+uuidName).size(300,150).toFile(smallImgPath + uuidName);
                     }
                 }
             }
@@ -105,9 +119,21 @@ public class FileController {
             img.setImgType(img_name);
             img.setUserId(userId);
             img.setRemark(remark);
+
+
             if (imageService.insertImg(img)>0){
-                //生成图片的公钥密钥
+
                 Integer imgId = img.getImgId();
+                TImage smallImg = new TImage();
+                smallImg.setUrl(smallImgUrl);
+                smallImg.setImgType(img_name);
+                smallImg.setUserId(userId);
+                smallImg.setRemark(remark);
+                smallImg.setRefId(imgId);
+
+                imageService.insertImg(smallImg);
+
+                //生成图片的公钥密钥
                 RSAImplement rsa = new RSAImplement();
                 BigInteger pub = rsa.getN();
                 BigInteger pri = rsa.getD();
@@ -168,14 +194,15 @@ public class FileController {
 
     @GetMapping(value = "/downLoadImg")
     @ResponseBody
-    public ResponseEntity<byte[]> downLoadImg(@RequestParam(value = "imgId") Integer imgId, @RequestParam(value = "pubKey") String pubKey){
+    public TImage downLoadImg(@RequestParam(value = "imgId") Integer imgId, @RequestParam(value = "pubKey") String pubKey){
+        TImage img = imageService.selectRefImgByImgId(imgId);
         //校验
         FileTool ft = new FileTool();
         String code = "",savePath = "";
         HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
         savePath = request.getSession().getServletContext().getRealPath("/");
         //获取图片url
-        String uuidName = imageService.queryImgUrl(imgId);
+        String uuidName = img.getUrl();
         String actualFileName = savePath + uuidName;//上传的图片url
         byte[] fileBs = FileTool.readImg(actualFileName);
         List<Byte> list = new ArrayList<Byte>();
@@ -188,8 +215,16 @@ public class FileController {
         byte[] bDigest = digest.getBytes();
         //未加密数据
         BigInteger bigIntegerDigest = new BigInteger(bDigest);
-        TParam param = paramService.selectParamByImgId(imgId);
+
+        //解密图片code
+        TParam param = paramService.selectParamByImgId(img.getImgId());
         RSAImplement rsa = new RSAImplement(new BigInteger(param.getPriKey()),new BigInteger(pubKey));
+        BigInteger encodeBI = rsa.encode(new BigInteger(img.getImgCode()));
+
+        if(bigIntegerDigest.equals(encodeBI)){
+                return img;
+        }
+
         return null;
     }
 }

@@ -23,4 +23,8 @@ public interface IImageService {
 
     String queryImgUrl(Integer imgId);
 
+    TImage selectImgByImgId(Integer imgId);
+
+    TImage selectRefImgByImgId(Integer imgId);
+
 }

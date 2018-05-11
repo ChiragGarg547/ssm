@@ -9,11 +9,13 @@ public class TImage implements Serializable {
 
     private Integer userId;
 
+    private String remark;
+
     private String url;
 
     private String imgType;
 
-    private String remark;
+    private Integer refId;
 
     private static final long serialVersionUID = 1L;
 
@@ -41,6 +43,14 @@ public class TImage implements Serializable {
         this.userId = userId;
     }
 
+    public String getRemark() {
+        return remark;
+    }
+
+    public void setRemark(String remark) {
+        this.remark = remark;
+    }
+
     public String getUrl() {
         return url;
     }
@@ -55,6 +65,14 @@ public class TImage implements Serializable {
 
     public void setImgType(String imgType) {
         this.imgType = imgType;
+    }
+
+    public Integer getRefId() {
+        return refId;
+    }
+
+    public void setRefId(Integer refId) {
+        this.refId = refId;
     }
 
     @Override
@@ -72,9 +90,10 @@ public class TImage implements Serializable {
         return (this.getImgId() == null ? other.getImgId() == null : this.getImgId().equals(other.getImgId()))
             && (this.getImgCode() == null ? other.getImgCode() == null : this.getImgCode().equals(other.getImgCode()))
             && (this.getUserId() == null ? other.getUserId() == null : this.getUserId().equals(other.getUserId()))
+            && (this.getRemark() == null ? other.getRemark() == null : this.getRemark().equals(other.getRemark()))
             && (this.getUrl() == null ? other.getUrl() == null : this.getUrl().equals(other.getUrl()))
             && (this.getImgType() == null ? other.getImgType() == null : this.getImgType().equals(other.getImgType()))
-                && (this.getRemark() == null ? other.getRemark() == null : this.getRemark().equals(other.getRemark()));
+            && (this.getRefId() == null ? other.getRefId() == null : this.getRefId().equals(other.getRefId()));
     }
 
     @Override
@@ -84,17 +103,10 @@ public class TImage implements Serializable {
         result = prime * result + ((getImgId() == null) ? 0 : getImgId().hashCode());
         result = prime * result + ((getImgCode() == null) ? 0 : getImgCode().hashCode());
         result = prime * result + ((getUserId() == null) ? 0 : getUserId().hashCode());
+        result = prime * result + ((getRemark() == null) ? 0 : getRemark().hashCode());
         result = prime * result + ((getUrl() == null) ? 0 : getUrl().hashCode());
         result = prime * result + ((getImgType() == null) ? 0 : getImgType().hashCode());
-        result = prime * result + ((getRemark() == null) ? 0 : getRemark().hashCode());
+        result = prime * result + ((getRefId() == null) ? 0 : getRefId().hashCode());
         return result;
-    }
-
-    public String getRemark() {
-        return remark;
-    }
-
-    public void setRemark(String remark) {
-        this.remark = remark;
     }
 }

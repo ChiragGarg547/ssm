@@ -1,104 +1,117 @@
-<?xml version="1.0" encoding="UTF-8" ?>
-<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.app.dao.ITImageDao" >
-  <resultMap id="BaseResultMap" type="com.app.entity.TImage" >
-    <id column="IMG_ID" property="imgId" jdbcType="INTEGER" />
-    <result column="IMG_NAME" property="imgName" jdbcType="VARCHAR" />
-    <result column="USER_ID" property="userId" jdbcType="INTEGER" />
-    <result column="URL" property="url" jdbcType="VARCHAR" />
-    <result column="IMG_TYPE" property="imgType" jdbcType="VARCHAR" />
-    <result column="REMARK" property="remark" jdbcType="VARCHAR" />
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.app.dao.ITImageDao">
+  <resultMap id="BaseResultMap" type="com.app.entity.TImage">
+    <id column="IMG_ID" jdbcType="INTEGER" property="imgId" />
+    <result column="IMG_CODE" jdbcType="VARCHAR" property="imgCode" />
+    <result column="USER_ID" jdbcType="INTEGER" property="userId" />
+    <result column="REMARK" jdbcType="VARCHAR" property="remark" />
+    <result column="URL" jdbcType="VARCHAR" property="url" />
+    <result column="IMG_TYPE" jdbcType="VARCHAR" property="imgType" />
+    <result column="REF_ID" jdbcType="INTEGER" property="refId" />
   </resultMap>
-  <sql id="Base_Column_List" >
-    IMG_ID, IMG_CODE, USER_ID, URL, IMG_TYPE,REMARK
+  <sql id="Base_Column_List">
+    IMG_ID, IMG_CODE, USER_ID, REMARK, URL, IMG_TYPE, REF_ID
   </sql>
-  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
     from T_IMAGE
     where IMG_ID = #{imgId,jdbcType=INTEGER}
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from T_IMAGE
     where IMG_ID = #{imgId,jdbcType=INTEGER}
   </delete>
-  <insert id="insert" parameterType="com.app.entity.TImage" >
-    insert into T_IMAGE (IMG_ID, IMG_NAME, USER_ID,
-      URL, IMG_TYPE,REMARK)
-    values (#{imgId,jdbcType=INTEGER}, #{imgCode,jdbcType=VARCHAR}, #{userId,jdbcType=INTEGER},
-      #{url,jdbcType=VARCHAR}, #{imgType,jdbcType=VARCHAR},#{remark,jdbcType=VARCHAR})
+  <insert id="insert" parameterType="com.app.entity.TImage">
+    insert into T_IMAGE (IMG_ID, IMG_CODE, USER_ID, 
+      REMARK, URL, IMG_TYPE, 
+      REF_ID)
+    values (#{imgId,jdbcType=INTEGER}, #{imgCode,jdbcType=VARCHAR}, #{userId,jdbcType=INTEGER}, 
+      #{remark,jdbcType=VARCHAR}, #{url,jdbcType=VARCHAR}, #{imgType,jdbcType=VARCHAR}, 
+      #{refId,jdbcType=INTEGER})
   </insert>
   <insert id="insertSelective" parameterType="com.app.entity.TImage" useGeneratedKeys="true" keyProperty="imgId">
     insert into T_IMAGE
-    <trim prefix="(" suffix=")" suffixOverrides="," >
-      <if test="imgId != null" >
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="imgId != null">
         IMG_ID,
       </if>
-      <if test="imgCode != null" >
+      <if test="imgCode != null">
         IMG_CODE,
       </if>
-      <if test="userId != null" >
+      <if test="userId != null">
         USER_ID,
       </if>
-      <if test="url != null" >
-        URL,
-      </if>
-      <if test="imgType != null" >
-        IMG_TYPE,
-      </if>
-      <if test="remark != null" >
+      <if test="remark != null">
         REMARK,
       </if>
+      <if test="url != null">
+        URL,
+      </if>
+      <if test="imgType != null">
+        IMG_TYPE,
+      </if>
+      <if test="refId != null">
+        REF_ID,
+      </if>
     </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides="," >
-      <if test="imgId != null" >
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="imgId != null">
         #{imgId,jdbcType=INTEGER},
       </if>
-      <if test="imgCode != null" >
+      <if test="imgCode != null">
         #{imgCode,jdbcType=VARCHAR},
       </if>
-      <if test="userId != null" >
+      <if test="userId != null">
         #{userId,jdbcType=INTEGER},
       </if>
-      <if test="url != null" >
+      <if test="remark != null">
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="url != null">
         #{url,jdbcType=VARCHAR},
       </if>
-      <if test="imgType != null" >
+      <if test="imgType != null">
         #{imgType,jdbcType=VARCHAR},
       </if>
-      <if test="remark != null" >
-        #{remark,jdbcType=VARCHAR},
+      <if test="refId != null">
+        #{refId,jdbcType=INTEGER},
       </if>
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.app.entity.TImage" >
+  <update id="updateByPrimaryKeySelective" parameterType="com.app.entity.TImage">
     update T_IMAGE
-    <set >
-      <if test="imgCode != null" >
+    <set>
+      <if test="imgCode != null">
         IMG_CODE = #{imgCode,jdbcType=VARCHAR},
       </if>
-      <if test="userId != null" >
+      <if test="userId != null">
         USER_ID = #{userId,jdbcType=INTEGER},
       </if>
-      <if test="url != null" >
+      <if test="remark != null">
+        REMARK = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="url != null">
         URL = #{url,jdbcType=VARCHAR},
       </if>
-      <if test="imgType != null" >
+      <if test="imgType != null">
         IMG_TYPE = #{imgType,jdbcType=VARCHAR},
       </if>
-      <if test="remark != null" >
-        REMARK = #{remark,jdbcType=VARCHAR},
+      <if test="refId != null">
+        REF_ID = #{refId,jdbcType=INTEGER},
       </if>
     </set>
     where IMG_ID = #{imgId,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.app.entity.TImage" >
+  <update id="updateByPrimaryKey" parameterType="com.app.entity.TImage">
     update T_IMAGE
     set IMG_CODE = #{imgCode,jdbcType=VARCHAR},
       USER_ID = #{userId,jdbcType=INTEGER},
+      REMARK = #{remark,jdbcType=VARCHAR},
       URL = #{url,jdbcType=VARCHAR},
       IMG_TYPE = #{imgType,jdbcType=VARCHAR},
-      REMARK = #{remark,jdbcType=VARCHAR}
+      REF_ID = #{refId,jdbcType=INTEGER}
     where IMG_ID = #{imgId,jdbcType=INTEGER}
   </update>
 </mapper>

@@ -14,7 +14,6 @@ var imgHouse= {
             getLocalResource("html/ImgHouse.html",function (source) {
                 mixDataAndTemplate(source,{data:ImgInfo},function(res){
                     $("#page-wrapper").html(res);
-                    new Clipboard('.btn');
                 });
             });
         });
@@ -27,7 +26,6 @@ var imgHouse= {
             username : GParam.username
         }
         getSourceFromWeb('/permit/askForImgPermit' , 'get' , aData, function (res) {
-
         })
     }
     ,downloadImg:function () {//校验并下载
@@ -39,6 +37,9 @@ var imgHouse= {
         }
         getSourceFromWeb('/file/downLoadImg' , 'get' , aData, function (res) {
 
+            var url = res.url;
+            var site = window.location.href;
+            window.open(site.replace('mainpage.html',url))
         })
     }
     ,getImgPubKey:function (i) {

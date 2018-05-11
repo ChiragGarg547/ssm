@@ -3,7 +3,7 @@
         PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
         "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
 <generatorConfiguration>
-    <classPathEntry location="C:\Users\Administrator\Desktop/mysql-connector-java-5.1.6.jar" />
+    <classPathEntry location="C:\Users\ChuckZ\Desktop\mysql-connector-java-5.1.6.jar" />
 
     <context id="default" targetRuntime="MyBatis3">
         <!-- 生成的Java文件的编码 -->
@@ -78,7 +78,7 @@
             <property name="enableSubPackages" value="true"/>
         </javaClientGenerator>
         <!--生成对应表及类名-->
-        <table tableName="T_PERMIT" enableCountByExample="false"
+        <table tableName="T_IMAGE" enableCountByExample="false"
                enableUpdateByExample="false"
                enableDeleteByExample="false"
                enableSelectByExample="false"

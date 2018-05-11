@@ -18,7 +18,7 @@ import java.util.List;
 public class ImageServiceImpl implements IImageService {
 
     @Autowired
-    private ITImageDao  imageDao;
+    private ITImageDao imageDao;
 
     @Override
     public Integer insertImg(TImage img) {
@@ -43,6 +43,16 @@ public class ImageServiceImpl implements IImageService {
     @Override
     public String queryImgUrl(Integer imgId) {
         return imageDao.queryImgUrl(imgId);
+    }
+
+    @Override
+    public TImage selectImgByImgId(Integer imgId) {
+        return imageDao.selectByPrimaryKey(imgId);
+    }
+
+    @Override
+    public TImage selectRefImgByImgId(Integer imgId) {
+        return imageDao.selectRefImgByImgId(imgId);
     }
 
 }
