@@ -1,5 +1,6 @@
 package com.app.service;
 
+import com.app.entity.PermitInfo;
 import com.app.entity.TParam;
 import com.app.entity.TPermit;
 import com.app.entity.TUser;
@@ -19,4 +20,7 @@ public interface IPermitService {
 
     boolean judgePermitByUserId(Integer userId, Integer imgId);
 
+    List<PermitInfo> gerAllPermitData(String username);
+
+    Integer authAccess(Integer pId);
 }

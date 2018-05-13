@@ -1,12 +1,15 @@
 package com.app.controller;
 
 import com.app.entity.KeyInfo;
+import com.app.entity.PermitInfo;
 import com.app.entity.TPermit;
 import com.app.service.IParamService;
 import com.app.service.IPermitService;
 import com.app.service.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 /**
  * <p>
@@ -55,4 +58,16 @@ public class PermitController {
         return key;
     }
 
+    @GetMapping(value = "/gerAllPermitData")
+    @ResponseBody
+    public List<PermitInfo> gerAllPermitData(@RequestParam(value = "username") String username){
+        return permitService.gerAllPermitData(username);
+    }
+
+    @GetMapping(value = "/authAccess")
+    @ResponseBody
+    public boolean authAccess(@RequestParam(value = "pId") Integer pId){
+        if(!(permitService.authAccess(pId)>0))return false;
+        return true;
+    }
 }

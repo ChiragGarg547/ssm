@@ -1,10 +1,13 @@
 package com.app.service.impl;
 
 import com.app.dao.ITPermitDao;
+import com.app.entity.PermitInfo;
 import com.app.entity.TPermit;
 import com.app.service.IPermitService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 /**
  * <p>
@@ -43,4 +46,16 @@ public class PermitServiceImpl implements IPermitService {
         }
         return false;
     }
+
+    @Override
+    public List<PermitInfo> gerAllPermitData(String username) {
+        return permitDao.gerAllPermitData(username);
+    }
+
+    @Override
+    public Integer authAccess(Integer pId) {
+        return permitDao.authAccess(pId);
+    }
+
+
 }
