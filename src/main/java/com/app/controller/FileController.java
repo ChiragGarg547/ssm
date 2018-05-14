@@ -13,11 +13,6 @@ import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
 import org.apache.commons.io.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
-import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
@@ -27,7 +22,6 @@ import javax.servlet.http.HttpServletResponse;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.core.Context;
 import java.io.File;
-import java.io.UnsupportedEncodingException;
 import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -96,14 +90,14 @@ public class FileController {
                         fileName = item.getName();
                         //获取到当前目录
                         savePath = request.getSession().getServletContext().getRealPath("/");
-                        savePath += "img\\";
+                        savePath += "img/";
                         //图片存在目录下
                         //记录的url为自动生成的字符串
                         uuidName  = UUID.randomUUID() + fileName.substring(fileName.lastIndexOf('.'));
-                        url = "img\\" + uuidName;
+                        url = "img/" + uuidName;
                         FileUtils.copyInputStreamToFile(item.getInputStream(), new File(savePath,uuidName));
-                        smallImgPath = savePath + "small\\";
-                        smallImgUrl = "img\\small\\" + uuidName;
+                        smallImgPath = savePath + "small/";
+                        smallImgUrl = "img/small/" + uuidName;
                         File dir = new File(smallImgPath);
                         if(!dir.exists()){
                             dir.mkdir();

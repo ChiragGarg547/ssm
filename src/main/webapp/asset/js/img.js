@@ -12,7 +12,7 @@ var img = {
         formData.append('remark',remark);
 
         $.ajax({
-            url:'/file/imgUpload',
+            url:GParam.url + '/file/imgUpload',
             type:'POST',
             data:formData,
             async: false,
@@ -33,7 +33,7 @@ var img = {
         var aData = {
             username:GParam.username
         }
-        getSourceFromWeb( '/file/getImgByUsername', 'get', aData,function (ImgInfo) {
+        getSourceFromWeb( GParam.url + '/file/getImgByUsername', 'get', aData,function (ImgInfo) {
             getLocalResource("html/Img.html",function (source) {
                 mixDataAndTemplate(source,{data:ImgInfo,username:GParam.username},function(res){
                     $("#page-wrapper").html(res);

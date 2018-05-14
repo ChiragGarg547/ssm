@@ -9,7 +9,7 @@ var imgHouse= {
         var aData = {
             username:GParam.username
         };
-        getSourceFromWeb( '/file/getOtherImgByUsername', 'get', aData,function (ImgInfo) {
+        getSourceFromWeb( GParam.url + '/file/getOtherImgByUsername', 'get', aData,function (ImgInfo) {
             imgHouse.imgList = ImgInfo;
             getLocalResource("html/ImgHouse.html",function (source) {
                 mixDataAndTemplate(source,{data:ImgInfo},function(res){
@@ -25,7 +25,7 @@ var imgHouse= {
             imgId : img.imgId,
             username : GParam.username
         }
-        getSourceFromWeb('/permit/askForImgPermit' , 'get' , aData, function (res) {
+        getSourceFromWeb(GParam.url + '/permit/askForImgPermit' , 'get' , aData, function (res) {
         })
     }
     ,downloadImg:function () {//校验并下载
@@ -35,7 +35,7 @@ var imgHouse= {
             imgId: imgId,
             pubKey: pubKey
         }
-        getSourceFromWeb('/file/downLoadImg' , 'get' , aData, function (res) {
+        getSourceFromWeb(GParam.url + '/file/downLoadImg' , 'get' , aData, function (res) {
 
             var url = res.url;
             var site = window.location.href;
@@ -48,7 +48,7 @@ var imgHouse= {
             imgId : img.imgId,
             username : GParam.username
         }
-        getSourceFromWeb('/permit/getImgPubKey' , 'get' , aData, function (res) {
+        getSourceFromWeb(GParam.url + '/permit/getImgPubKey' , 'get' , aData, function (res) {
             var pubKey = res.publicKey;
             $("#pubKey").val(pubKey);
             imgHouse.showKeyModal();

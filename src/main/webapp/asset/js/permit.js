@@ -6,7 +6,7 @@ var permit = {
         var aData = {
             username:GParam.username
         };
-        getSourceFromWeb( '/permit/gerAllPermitData', 'get', aData,function (permitInfo) {
+        getSourceFromWeb( GParam.url + '/permit/gerAllPermitData', 'get', aData,function (permitInfo) {
             permit.permitList = permitInfo;
             getLocalResource("html/permit.html",function (source) {
                 mixDataAndTemplate(source,{data:permitInfo},function(res){
@@ -19,7 +19,7 @@ var permit = {
         var aData = {
             pId:permit.permitList[i].pId
         };
-        getSourceFromWeb( '/permit/authAccess', 'get', aData,function (res) {
+        getSourceFromWeb( GParam.url + '/permit/authAccess', 'get', aData,function (res) {
             $("#ptr" + i).remove();
         });
     }

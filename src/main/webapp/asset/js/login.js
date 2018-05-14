@@ -6,7 +6,7 @@ var login={
             username:l_username,
             password:l_password
         }
-        getSourceFromWeb( '/user/checkLogin', 'get', aData, function(res){
+        getSourceFromWeb( GParam.url + '/user/checkLogin', 'get', aData, function(res){
             if(res.success){
                 window.localStorage.setItem('username',res.userName)
                 window.location.href='mainpage.html';
@@ -22,7 +22,7 @@ var login={
             username:l_username,
             password:l_password
         }
-        getSourceFromWeb( '/user/register', 'get', aData, function(res){
+        getSourceFromWeb( GParam.url + '/user/register', 'get', aData, function(res){
             if(res){
                 alert("注册成功！");
             }else{
